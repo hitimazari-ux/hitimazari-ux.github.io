@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Neon Cursor</title>
+  <title>Neon Cursor Speed</title>
   <style>
     body {
       margin: 0;
@@ -21,15 +21,14 @@
       transform: translate(-50%, -50%);
       
       background: radial-gradient(circle, #00f7ff, #ff00c8);
-      
-      /* неоновое свечение */
+
       box-shadow:
         0 0 10px #00f7ff,
         0 0 20px #00f7ff,
         0 0 40px #ff00c8,
         0 0 80px #ff00c8;
 
-      transition: width 0.2s, height 0.2s;
+      transition: width 0.15s, height 0.15s;
     }
 
     .circle.click {
@@ -47,13 +46,25 @@
 
   let mouseX = 0;
   let mouseY = 0;
+  let lastX = 0;
+  let lastY = 0;
 
   let currentX = 0;
   let currentY = 0;
 
+  let speed = 0;
+
   document.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
+
+    // вычисляем скорость
+    const dx = mouseX - lastX;
+    const dy = mouseY - lastY;
+    speed = Math.sqrt(dx * dx + dy * dy);
+
+    lastX = mouseX;
+    lastY = mouseY;
   });
 
   document.addEventListener('mousedown', () => {
@@ -67,6 +78,24 @@
   function animate() {
     currentX += (mouseX - currentX) * 0.15;
     currentY += (mouseY - currentY) * 0.15;
+
+    // ограничим влияние скорости
+    let scale = Math.min(speed / 20, 2);
+
+    let size = 40 + scale * 20;
+
+    circle.style.width = size + 'px';
+    circle.style.height = size + 'px';
+
+    // усиливаем свечение при скорости
+    let glow = 10 + scale * 30;
+
+    circle.style.boxShadow = `
+      0 0 ${glow}px #00f7ff,
+      0 0 ${glow * 2}px #00f7ff,
+      0 0 ${glow * 3}px #ff00c8,
+      0 0 ${glow * 4}px #ff00c8
+    `;
 
     circle.style.left = currentX + 'px';
     circle.style.top = currentY + 'px';
