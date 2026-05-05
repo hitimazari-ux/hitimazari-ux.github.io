@@ -2,43 +2,80 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Анимация</title>
+  <title>Neon Cursor</title>
   <style>
     body {
       margin: 0;
       height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #111;
-      color: white;
-      font-family: sans-serif;
-      flex-direction: column;
+      background: #0a0a0a;
+      overflow: hidden;
+      cursor: none;
     }
 
     .circle {
-      width: 150px;
-      height: 150px;
+      position: fixed;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
-      background: linear-gradient(45deg, #ff0057, #00d4ff);
-      animation: spin 3s linear infinite, pulse 2s ease-in-out infinite;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      
+      background: radial-gradient(circle, #00f7ff, #ff00c8);
+      
+      /* неоновое свечение */
+      box-shadow:
+        0 0 10px #00f7ff,
+        0 0 20px #00f7ff,
+        0 0 40px #ff00c8,
+        0 0 80px #ff00c8;
+
+      transition: width 0.2s, height 0.2s;
     }
 
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.2); }
+    .circle.click {
+      width: 80px;
+      height: 80px;
     }
   </style>
 </head>
 <body>
 
-<h1>Работает 🚀</h1>
-<div class="circle"></div>
+<div class="circle" id="circle"></div>
+
+<script>
+  const circle = document.getElementById('circle');
+
+  let mouseX = 0;
+  let mouseY = 0;
+
+  let currentX = 0;
+  let currentY = 0;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+
+  document.addEventListener('mousedown', () => {
+    circle.classList.add('click');
+  });
+
+  document.addEventListener('mouseup', () => {
+    circle.classList.remove('click');
+  });
+
+  function animate() {
+    currentX += (mouseX - currentX) * 0.15;
+    currentY += (mouseY - currentY) * 0.15;
+
+    circle.style.left = currentX + 'px';
+    circle.style.top = currentY + 'px';
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+</script>
 
 </body>
 </html>
