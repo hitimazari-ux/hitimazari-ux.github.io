@@ -1,10 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Мой сайт</title>
+  <title>Анимация</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #111;
+      color: white;
+      font-family: sans-serif;
+      flex-direction: column;
+    }
+
+    .circle {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #ff0057, #00d4ff);
+      animation: spin 3s linear infinite, pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+  </style>
 </head>
 <body>
-  <h1>Работает 🚀</h1>
+
+<h1>Работает 🚀</h1>
+<div class="circle"></div>
+
 </body>
 </html>
