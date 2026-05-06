@@ -2,48 +2,74 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Read</title>
 
 <style>
 body {
   margin: 0;
+  background: black;
   color: white;
-  background-color: black;
+  font-family: sans-serif;
 
-  /* SVG фон-гравюра */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cpath d='M0 10 C 40 0, 60 0, 100 10 S 160 20, 200 10' stroke='white' stroke-width='0.5' fill='none' opacity='0.15'/%3E%3Cpath d='M0 60 C 40 50, 60 50, 100 60 S 160 70, 200 60' stroke='white' stroke-width='0.5' fill='none' opacity='0.12'/%3E%3Cpath d='M0 110 C 40 100, 60 100, 100 110 S 160 120, 200 110' stroke='white' stroke-width='0.5' fill='none' opacity='0.10'/%3E%3Cpath d='M0 160 C 40 150, 60 150, 100 160 S 160 170, 200 160' stroke='white' stroke-width='0.5' fill='none' opacity='0.08'/%3E%3C/svg%3E");
+  /* SVG гравюра */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 200 200'%3E%3Cpath d='M0 20 C 30 0, 70 0, 100 20 S 170 40, 200 20' stroke='white' stroke-width='0.6' fill='none' opacity='0.14'/%3E%3Cpath d='M0 80 C 30 60, 70 60, 100 80 S 170 100, 200 80' stroke='white' stroke-width='0.6' fill='none' opacity='0.12'/%3E%3Cpath d='M0 140 C 30 120, 70 120, 100 140 S 170 160, 200 140' stroke='white' stroke-width='0.6' fill='none' opacity='0.10'/%3E%3C/svg%3E");
 
+  background-size: 320px 320px;
   background-repeat: repeat;
-  background-size: 300px 300px;
-
-  /* переход */
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-/* появление страницы */
-body.loaded {
-  opacity: 1;
-}
-
-/* исчезновение при переходе */
-body.fade-out {
-  opacity: 0;
 }
 
 .content {
-  position: relative;
-  z-index: 2;
   padding: 40px;
+  max-width: 800px;
+  line-height: 1.6;
 }
 
-a {
-  color: #aaa;
-  text-decoration: none;
-}
+/* КНОПКА НАЗАД */
+.back-btn {
+  display: inline-block;
+  margin-bottom: 25px;
+  padding: 10px 16px;
 
-a:hover {
   color: white;
+  text-decoration: none;
+  letter-spacing: 2px;
+  font-size: 12px;
+
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 8px;
+
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(6px);
+
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.back-btn::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.15);
+  opacity: 0;
+  filter: blur(8px);
+  transition: 0.3s;
+}
+
+.back-btn:hover {
+  background: rgba(255,255,255,0.12);
+  transform: translateX(-3px);
+}
+
+.back-btn:hover::before {
+  opacity: 1;
+}
+
+/* текст-заглушка */
+.text {
+  font-size: 16px;
+  opacity: 0.85;
 }
 </style>
 
@@ -51,36 +77,19 @@ a:hover {
 
 <body>
 
-  <div class="content">
-    <h1>READ</h1>
-    <p>Тут будет контент</p>
-    <a href="/">← назад</a>
+<div class="content">
+
+  <a href="/" class="back-btn">← НАЗАД</a>
+
+  <h1>READ</h1>
+
+  <div class="text">
+    Здесь будет твой контент.<br><br>
+    Ты можешь редактировать эту страницу напрямую.<br>
+    Или позже подключить загрузку из файла.
   </div>
 
-<script>
-// fade-in при загрузке
-document.addEventListener("DOMContentLoaded", () => {
-  document.body.classList.add("loaded");
-});
-
-// плавный переход по ссылкам
-document.querySelectorAll("a").forEach(link => {
-  link.addEventListener("click", function(e) {
-    const href = this.getAttribute("href");
-
-    // только внутренние ссылки
-    if (href && href.startsWith("/")) {
-      e.preventDefault();
-
-      document.body.classList.add("fade-out");
-
-      setTimeout(() => {
-        window.location.href = href;
-      }, 450);
-    }
-  });
-});
-</script>
+</div>
 
 </body>
 </html>
