@@ -10,7 +10,7 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background: radial-gradient(circle at center, #050505, #000);
+    background: #000;
     cursor: none;
     font-family: sans-serif;
   }
@@ -109,21 +109,25 @@ function drawCore() {
   let speed = Math.sqrt(mouse.vx**2 + mouse.vy**2);
 
   let radius = 20 + speed * 0.5;
-
   let hue = 200 + speed * 5;
 
   ctx.beginPath();
   ctx.arc(mouse.x, mouse.y, radius, 0, Math.PI*2);
 
   ctx.fillStyle = `hsl(${hue}, 100%, 60%)`;
-  ctx.shadowBlur = 40;
+  ctx.shadowBlur = 50;
   ctx.shadowColor = `hsl(${hue}, 100%, 60%)`;
   ctx.fill();
 }
 
 function animate() {
-  ctx.fillStyle = "rgba(0,0,0,0.15)";
+  // чистый фон без мерцания
+  ctx.globalCompositeOperation = "source-over";
+  ctx.fillStyle = "#000";
   ctx.fillRect(0, 0, w, h);
+
+  // режим неона
+  ctx.globalCompositeOperation = "lighter";
 
   drawCore();
 
