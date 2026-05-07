@@ -11,7 +11,7 @@
     padding: 0;
     overflow: hidden;
     background: #000;
-    cursor: none;
+    cursor: default; /* курсор снова виден */
     font-family: sans-serif;
   }
 
@@ -99,53 +99,78 @@
 </div>
 
 <canvas id="canvas"></canvas>
-<div class="hint">двигай мышкой • кликай</div>
+
+<div class="hint">
+  двигай мышкой • кликай
+</div>
 
 <script>
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 let w, h;
+
 function resize() {
   w = canvas.width = window.innerWidth;
   h = canvas.height = window.innerHeight;
 }
+
 resize();
+
 window.addEventListener("resize", resize);
 
-let mouse = { x: w/2, y: h/2, vx: 0, vy: 0 };
+let mouse = {
+  x: w / 2,
+  y: h / 2,
+  vx: 0,
+  vy: 0
+};
 
 document.addEventListener("mousemove", e => {
   mouse.vx = e.clientX - mouse.x;
   mouse.vy = e.clientY - mouse.y;
+
   mouse.x = e.clientX;
   mouse.y = e.clientY;
 });
 
 document.addEventListener("click", () => {
   for (let i = 0; i < 40; i++) {
-    particles.push(new Particle(mouse.x, mouse.y, true));
+    particles.push(
+      new Particle(mouse.x, mouse.y, true)
+    );
   }
 });
 
 class Particle {
+
   constructor(x, y, burst = false) {
+
     this.x = x;
     this.y = y;
+
     this.angle = Math.random() * Math.PI * 2;
-    this.speed = burst ? Math.random()*6 : Math.random()*2;
-    this.size = Math.random()*2 + 1;
+
+    this.speed = burst
+      ? Math.random() * 6
+      : Math.random() * 2;
+
+    this.size = Math.random() * 2 + 1;
+
     this.life = 1;
-    this.hue = 180 + Math.random()*120;
+
+    this.hue = 180 + Math.random() * 120;
   }
 
   update() {
+
     this.x += Math.cos(this.angle) * this.speed;
     this.y += Math.sin(this.angle) * this.speed;
 
     let dx = mouse.x - this.x;
     let dy = mouse.y - this.y;
-    let dist = Math.sqrt(dx*dx + dy*dy);
+
+    let dist = Math.sqrt(dx * dx + dy * dy);
 
     if (dist < 150) {
       this.x -= dx * 0.02;
@@ -156,11 +181,25 @@ class Particle {
   }
 
   draw() {
+
     ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
-    ctx.fillStyle = `hsla(${this.hue}, 100%, 60%, ${this.life})`;
+
+    ctx.arc(
+      this.x,
+      this.y,
+      this.size,
+      0,
+      Math.PI * 2
+    );
+
+    ctx.fillStyle =
+      `hsla(${this.hue}, 100%, 60%, ${this.life})`;
+
     ctx.shadowBlur = 20;
-    ctx.shadowColor = `hsl(${this.hue}, 100%, 60%)`;
+
+    ctx.shadowColor =
+      `hsl(${this.hue}, 100%, 60%)`;
+
     ctx.fill();
   }
 }
@@ -168,41 +207,42 @@ class Particle {
 let particles = [];
 
 for (let i = 0; i < 120; i++) {
-  particles.push(new Particle(Math.random()*w, Math.random()*h));
-}
 
-function drawCore() {
-  let speed = Math.sqrt(mouse.vx**2 + mouse.vy**2);
-
-  let radius = 20 + speed * 0.5;
-  let hue = 200 + speed * 5;
-
-  ctx.beginPath();
-  ctx.arc(mouse.x, mouse.y, radius, 0, Math.PI*2);
-
-  ctx.fillStyle = `hsl(${hue}, 100%, 60%)`;
-  ctx.shadowBlur = 50;
-  ctx.shadowColor = `hsl(${hue}, 100%, 60%)`;
-  ctx.fill();
+  particles.push(
+    new Particle(
+      Math.random() * w,
+      Math.random() * h
+    )
+  );
 }
 
 function animate() {
+
   ctx.globalCompositeOperation = "source-over";
+
   ctx.fillStyle = "#000";
   ctx.fillRect(0, 0, w, h);
 
   ctx.globalCompositeOperation = "lighter";
 
-  drawCore();
-
   particles.forEach((p, i) => {
+
     p.update();
     p.draw();
-    if (p.life <= 0) particles.splice(i, 1);
+
+    if (p.life <= 0) {
+      particles.splice(i, 1);
+    }
   });
 
   if (particles.length < 150) {
-    particles.push(new Particle(Math.random()*w, Math.random()*h));
+
+    particles.push(
+      new Particle(
+        Math.random() * w,
+        Math.random() * h
+      )
+    );
   }
 
   requestAnimationFrame(animate);
