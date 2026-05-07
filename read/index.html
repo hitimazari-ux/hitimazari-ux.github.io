@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gallery</title>
+<title>Read</title>
 
 <style>
 body {
@@ -21,14 +21,14 @@ body {
 
 .content {
   padding: 40px;
-  max-width: 1200px;
-  margin: auto;
+  max-width: 800px;
+  line-height: 1.6;
 }
 
 /* КНОПКА НАЗАД */
 .back-btn {
   display: inline-block;
-  margin-bottom: 35px;
+  margin-bottom: 25px;
   padding: 10px 16px;
 
   color: white;
@@ -66,70 +66,10 @@ body {
   opacity: 1;
 }
 
-h1 {
-  margin-top: 0;
-  margin-bottom: 30px;
-  letter-spacing: 4px;
-  font-size: 34px;
-}
-
-/* ГАЛЕРЕЯ */
-
-.gallery {
-  display: grid;
-
-  grid-template-columns:
-    repeat(auto-fit, minmax(260px, 1fr));
-
-  gap: 24px;
-}
-
-.card {
-  position: relative;
-  overflow: hidden;
-
-  border-radius: 16px;
-
-  border: 1px solid rgba(255,255,255,0.12);
-
-  background: rgba(255,255,255,0.03);
-
-  backdrop-filter: blur(8px);
-
-  transition: 0.35s ease;
-}
-
-.card:hover {
-  transform: translateY(-6px) scale(1.02);
-
-  border-color: rgba(255,255,255,0.28);
-
-  box-shadow:
-    0 0 20px rgba(255,255,255,0.06),
-    0 0 40px rgba(255,255,255,0.04);
-}
-
-.card img {
-  width: 100%;
-  height: 320px;
-  object-fit: cover;
-  display: block;
-
-  filter: grayscale(10%) contrast(1.05);
-  transition: 0.4s ease;
-}
-
-.card:hover img {
-  transform: scale(1.05);
-}
-
-.caption {
-  padding: 14px 16px;
-
-  font-size: 13px;
-  letter-spacing: 2px;
-
-  color: rgba(255,255,255,0.82);
+/* текст-заглушка */
+.text {
+  font-size: 16px;
+  opacity: 0.85;
 }
 </style>
 
@@ -139,56 +79,36 @@ h1 {
 
 <div class="content">
 
-  <a href="/" class="back-btn">
-    ← НАЗАД
-  </a>
+  <a href="/" class="back-btn">← НАЗАД</a>
 
-  <h1>GALLERY</h1>
+  <h1>READ</h1>
 
-  <div class="gallery">
-
-    <div class="card">
-      <img src="https://picsum.photos/600/800?1">
-      <div class="caption">
-        FRAME_001
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="https://picsum.photos/600/800?2">
-      <div class="caption">
-        FRAME_002
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="https://picsum.photos/600/800?3">
-      <div class="caption">
-        FRAME_003
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="https://picsum.photos/600/800?4">
-      <div class="caption">
-        FRAME_004
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="https://picsum.photos/600/800?5">
-      <div class="caption">
-        FRAME_005
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="https://picsum.photos/600/800?6">
-      <div class="caption">
-        FRAME_006
-      </div>
-    </div>
-
+  <div class="text">
+    Здесь будет мой контент.<br><br>
+    А пока почитайте Серёжу.<br>
+    <pre>
+Не жалею, не зову, не плачу,
+Все пройдет, как с белых яблонь дым.
+Увяданья золотом охваченный,
+Я не буду больше молодым.
+Ты теперь не так уж будешь биться,
+Сердце, тронутое холодком,
+И страна березового ситца
+Не заманит шляться босиком.
+Дух бродяжий! ты все реже, реже
+Расшевеливаешь пламень уст
+О моя утраченная свежесть,
+Буйство глаз и половодье чувств.
+Я теперь скупее стал в желаньях,
+Жизнь моя? иль ты приснилась мне?
+Словно я весенней гулкой ранью
+Проскакал на розовом коне.
+Все мы, все мы в этом мире тленны,
+Тихо льется с кленов листьев медь…
+Будь же ты вовек благословенно,
+Что пришло процвесть и умереть.
+                         1922г.
+    </pre>
   </div>
 
 </div>
