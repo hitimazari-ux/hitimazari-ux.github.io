@@ -11,7 +11,7 @@
     padding: 0;
     overflow: hidden;
     background: #000;
-    cursor: default; /* курсор снова виден */
+    cursor: default;
     font-family: sans-serif;
   }
 
@@ -89,13 +89,26 @@
 
 <!-- КНОПКИ -->
 <div class="menu">
-  <a href="/read" class="btn">READ</a>
-  <a href="/projects" class="btn">PROJECTS</a>
+
+  <a href="/read" class="btn">
+    READ
+  </a>
+
+  <a href="/projects" class="btn">
+    PROJECTS
+  </a>
+
+  <a href="/gallery" class="btn">
+    GALLERY
+  </a>
 
   <!-- TELEGRAM -->
-  <a href="https://t.me/+d-d9_9h4pNJjNGEy" target="_blank" class="btn tg">
+  <a href="https://t.me/+d-d9_9h4pNJjNGEy"
+     target="_blank"
+     class="btn tg">
     TELEGRAM
   </a>
+
 </div>
 
 <canvas id="canvas"></canvas>
@@ -127,6 +140,7 @@ let mouse = {
 };
 
 document.addEventListener("mousemove", e => {
+
   mouse.vx = e.clientX - mouse.x;
   mouse.vy = e.clientY - mouse.y;
 
@@ -135,7 +149,9 @@ document.addEventListener("mousemove", e => {
 });
 
 document.addEventListener("click", () => {
+
   for (let i = 0; i < 40; i++) {
+
     particles.push(
       new Particle(mouse.x, mouse.y, true)
     );
@@ -173,6 +189,7 @@ class Particle {
     let dist = Math.sqrt(dx * dx + dy * dy);
 
     if (dist < 150) {
+
       this.x -= dx * 0.02;
       this.y -= dy * 0.02;
     }
