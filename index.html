@@ -13,10 +13,13 @@
     background: #000;
     cursor: default;
     font-family: sans-serif;
-  }
+    color: white;
 
-  canvas {
-    display: block;
+    /* SVG гравюра */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 200 200'%3E%3Cpath d='M0 20 C 30 0, 70 0, 100 20 S 170 40, 200 20' stroke='white' stroke-width='0.6' fill='none' opacity='0.14'/%3E%3Cpath d='M0 80 C 30 60, 70 60, 100 80 S 170 100, 200 80' stroke='white' stroke-width='0.6' fill='none' opacity='0.12'/%3E%3Cpath d='M0 140 C 30 120, 70 120, 100 140 S 170 160, 200 140' stroke='white' stroke-width='0.6' fill='none' opacity='0.10'/%3E%3C/svg%3E");
+
+    background-size: 320px 320px;
+    background-repeat: repeat;
   }
 
   /* МЕНЮ */
@@ -28,47 +31,53 @@
     display: flex;
     gap: 20px;
     z-index: 10;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .btn {
     padding: 10px 25px;
-    border: 1px solid #00f7ff;
-    color: #00f7ff;
+
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 8px;
+
+    color: white;
     text-decoration: none;
     font-size: 13px;
     letter-spacing: 2px;
-    transition: 0.3s;
+
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(6px);
+
     position: relative;
+    transition: all 0.3s ease;
   }
 
-  .btn:hover {
-    background: #00f7ff;
-    color: #000;
-    box-shadow:
-      0 0 10px #00f7ff,
-      0 0 20px #00f7ff,
-      0 0 40px #00f7ff;
-  }
-
-  /* Telegram кнопка */
-  .tg {
-    border-color: #00f7ff;
-    color: #00f7ff;
-    position: relative;
-  }
-
-  .tg::before {
+  .btn::before {
     content: "";
     position: absolute;
     inset: -2px;
-    border: 1px solid #00f7ff;
-    opacity: 0.4;
-    filter: blur(6px);
+
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.15);
+
+    opacity: 0;
+    filter: blur(8px);
+
     transition: 0.3s;
   }
 
-  .tg:hover::before {
+  .btn:hover {
+    background: rgba(255,255,255,0.12);
+    transform: translateY(-2px);
+  }
+
+  .btn:hover::before {
     opacity: 1;
+  }
+
+  /* Telegram кнопка */
+  .tg::before {
     filter: blur(12px);
   }
 
@@ -77,9 +86,11 @@
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
+
     color: #666;
     font-size: 12px;
     letter-spacing: 1px;
+
     z-index: 10;
   }
 </style>
@@ -92,6 +103,10 @@
 
   <a href="/read" class="btn">
     READ
+  </a>
+
+  <a href="/listen" class="btn">
+    LISTEN
   </a>
 
   <a href="/projects" class="btn">
@@ -111,162 +126,9 @@
 
 </div>
 
-<canvas id="canvas"></canvas>
-
 <div class="hint">
-  двигай мышкой • кликай
+  hitimazari.com
 </div>
-
-<script>
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-
-let w, h;
-
-function resize() {
-  w = canvas.width = window.innerWidth;
-  h = canvas.height = window.innerHeight;
-}
-
-resize();
-
-window.addEventListener("resize", resize);
-
-let mouse = {
-  x: w / 2,
-  y: h / 2,
-  vx: 0,
-  vy: 0
-};
-
-document.addEventListener("mousemove", e => {
-
-  mouse.vx = e.clientX - mouse.x;
-  mouse.vy = e.clientY - mouse.y;
-
-  mouse.x = e.clientX;
-  mouse.y = e.clientY;
-});
-
-document.addEventListener("click", () => {
-
-  for (let i = 0; i < 40; i++) {
-
-    particles.push(
-      new Particle(mouse.x, mouse.y, true)
-    );
-  }
-});
-
-class Particle {
-
-  constructor(x, y, burst = false) {
-
-    this.x = x;
-    this.y = y;
-
-    this.angle = Math.random() * Math.PI * 2;
-
-    this.speed = burst
-      ? Math.random() * 6
-      : Math.random() * 2;
-
-    this.size = Math.random() * 2 + 1;
-
-    this.life = 1;
-
-    this.hue = 180 + Math.random() * 120;
-  }
-
-  update() {
-
-    this.x += Math.cos(this.angle) * this.speed;
-    this.y += Math.sin(this.angle) * this.speed;
-
-    let dx = mouse.x - this.x;
-    let dy = mouse.y - this.y;
-
-    let dist = Math.sqrt(dx * dx + dy * dy);
-
-    if (dist < 150) {
-
-      this.x -= dx * 0.02;
-      this.y -= dy * 0.02;
-    }
-
-    this.life -= 0.01;
-  }
-
-  draw() {
-
-    ctx.beginPath();
-
-    ctx.arc(
-      this.x,
-      this.y,
-      this.size,
-      0,
-      Math.PI * 2
-    );
-
-    ctx.fillStyle =
-      `hsla(${this.hue}, 100%, 60%, ${this.life})`;
-
-    ctx.shadowBlur = 20;
-
-    ctx.shadowColor =
-      `hsl(${this.hue}, 100%, 60%)`;
-
-    ctx.fill();
-  }
-}
-
-let particles = [];
-
-for (let i = 0; i < 120; i++) {
-
-  particles.push(
-    new Particle(
-      Math.random() * w,
-      Math.random() * h
-    )
-  );
-}
-
-function animate() {
-
-  ctx.globalCompositeOperation = "source-over";
-
-  ctx.fillStyle = "#000";
-  ctx.fillRect(0, 0, w, h);
-
-  ctx.globalCompositeOperation = "lighter";
-
-  particles.forEach((p, i) => {
-
-    p.update();
-    p.draw();
-
-    if (p.life <= 0) {
-      particles.splice(i, 1);
-    }
-  });
-
-  if (particles.length < 150) {
-
-    particles.push(
-      new Particle(
-        Math.random() * w,
-        Math.random() * h
-      )
-    );
-  }
-
-  requestAnimationFrame(animate);
-}
-
-animate();
-</script>
 
 </body>
 </html>
