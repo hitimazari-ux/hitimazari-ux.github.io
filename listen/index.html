@@ -72,10 +72,9 @@ body {
   margin-bottom: 40px;
 }
 
-/* АУДИО КАРТОЧКИ */
-.track {
+/* ВЫПАДАЮЩИЕ БЛОКИ */
+.section {
   margin-bottom: 25px;
-  padding: 20px;
 
   border: 1px solid rgba(255,255,255,0.12);
   border-radius: 14px;
@@ -83,11 +82,54 @@ body {
   background: rgba(255,255,255,0.03);
   backdrop-filter: blur(6px);
 
+  overflow: hidden;
+}
+
+.section summary {
+  padding: 18px 22px;
+  cursor: pointer;
+
+  list-style: none;
+
+  font-size: 14px;
+  letter-spacing: 2px;
+
+  transition: 0.3s ease;
+}
+
+.section summary:hover {
+  background: rgba(255,255,255,0.06);
+}
+
+.section summary::-webkit-details-marker {
+  display: none;
+}
+
+.section summary::after {
+  content: "+";
+  float: right;
+  opacity: 0.6;
+}
+
+.section[open] summary::after {
+  content: "−";
+}
+
+/* АУДИО КАРТОЧКИ */
+.track {
+  margin: 0 20px 20px 20px;
+  padding: 20px;
+
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 14px;
+
+  background: rgba(255,255,255,0.02);
+
   transition: 0.3s ease;
 }
 
 .track:hover {
-  background: rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.05);
   transform: translateY(-2px);
 }
 
@@ -118,32 +160,47 @@ audio {
     И моя, и чужая музыка
   </div>
 
-  <!-- ТРЕК -->
-  <div class="track">
-    <div class="track-title">The Noir Waltz</div>
+  <!-- МОЯ МУЗЫКА -->
+  <details class="section" open>
 
-    <audio controls>
-      <source src="music/TheNoirWaltz.mp3" type="audio/mpeg">
-    </audio>
-  </div>
+    <summary>МОЯ МУЗЫКА</summary>
 
-  <!-- ТРЕК -->
-  <div class="track">
-    <div class="track-title">The Devil's March</div>
+    <div class="track">
+      <div class="track-title">The Noir Waltz</div>
 
-    <audio controls>
-      <source src="music/TheDevilsMarch.mp3" type="audio/mpeg">
-    </audio>
-  </div>
+      <audio controls>
+        <source src="music/TheNoirWaltz.mp3" type="audio/mpeg">
+      </audio>
+    </div>
 
-  <!-- ТРЕК -->
-  <div class="track">
-    <div class="track-title">The Rain</div>
+    <div class="track">
+      <div class="track-title">The Devil's March</div>
 
-    <audio controls>
-      <source src="music/TheRain.mp3" type="audio/mpeg">
-    </audio>
-  </div>
+      <audio controls>
+        <source src="music/TheDevilsMarch.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+
+    <div class="track">
+      <div class="track-title">The Rain</div>
+
+      <audio controls>
+        <source src="music/TheRain.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+
+  </details>
+
+  <!-- ЧУЖАЯ МУЗЫКА -->
+  <details class="section">
+
+    <summary>ЧУЖАЯ МУЗЫКА</summary>
+
+    <div class="track">
+      <div class="track-title">Пока пусто</div>
+    </div>
+
+  </details>
 
 </div>
 
