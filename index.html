@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Neon System</title>
+<title>Hitimazari</title>
 
 <style>
   html, body {
@@ -11,7 +11,6 @@
     padding: 0;
     overflow: hidden;
     background: #000;
-    cursor: default;
     font-family: sans-serif;
     color: white;
 
@@ -28,9 +27,12 @@
     top: 40px;
     left: 50%;
     transform: translateX(-50%);
+
     display: flex;
     gap: 20px;
+
     z-index: 10;
+
     flex-wrap: wrap;
     justify-content: center;
   }
@@ -43,6 +45,7 @@
 
     color: white;
     text-decoration: none;
+
     font-size: 13px;
     letter-spacing: 2px;
 
@@ -50,11 +53,13 @@
     backdrop-filter: blur(6px);
 
     position: relative;
+
     transition: all 0.3s ease;
   }
 
   .btn::before {
     content: "";
+
     position: absolute;
     inset: -2px;
 
@@ -76,22 +81,146 @@
     opacity: 1;
   }
 
-  /* Telegram кнопка */
-  .tg::before {
-    filter: blur(12px);
+  /* ВРАЩАЮЩИЙСЯ КРУГ */
+  .ring {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 260px;
+    height: 260px;
+
+    border-radius: 50%;
+
+    border:
+      1px solid rgba(255,255,255,0.08);
+
+    box-shadow:
+      0 0 30px rgba(255,255,255,0.03),
+      inset 0 0 30px rgba(255,255,255,0.02);
+
+    animation:
+      spin 40s linear infinite;
   }
 
+  .ring::before {
+    content: "";
+
+    position: absolute;
+    inset: 20px;
+
+    border-radius: 50%;
+
+    border:
+      1px solid rgba(255,255,255,0.05);
+  }
+
+  .ring::after {
+    content: "";
+
+    position: absolute;
+
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background:
+      rgba(255,255,255,0.35);
+
+    top: -4px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    box-shadow:
+      0 0 12px rgba(255,255,255,0.3);
+  }
+
+  @keyframes spin {
+
+    from {
+      transform:
+        translate(-50%, -50%)
+        rotate(0deg);
+    }
+
+    to {
+      transform:
+        translate(-50%, -50%)
+        rotate(360deg);
+    }
+  }
+
+  /* ТЕКСТ */
+  .quote {
+    position: absolute;
+
+    top: 55%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    color: rgba(255,255,255,0.55);
+
+    font-size: 12px;
+    letter-spacing: 4px;
+
+    text-transform: uppercase;
+
+    z-index: 2;
+
+    text-align: center;
+  }
+
+  /* НИЖНИЙ ТЕКСТ */
   .hint {
     position: fixed;
+
     bottom: 20px;
     left: 50%;
+
     transform: translateX(-50%);
 
     color: #666;
+
     font-size: 12px;
     letter-spacing: 1px;
 
     z-index: 10;
+  }
+
+  /* СВЕЧЕНИЕ */
+  body::before {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    background:
+      radial-gradient(
+        circle at center,
+        rgba(255,255,255,0.04),
+        transparent 60%
+      );
+
+    pointer-events: none;
+
+    animation:
+      pulse 6s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+
+    0%,100% {
+      opacity: 0.4;
+    }
+
+    50% {
+      opacity: 1;
+    }
   }
 </style>
 </head>
@@ -117,15 +246,23 @@
     GALLERY
   </a>
 
-  <!-- TELEGRAM -->
   <a href="https://t.me/+d-d9_9h4pNJjNGEy"
      target="_blank"
-     class="btn tg">
+     class="btn">
     TELEGRAM
   </a>
 
 </div>
 
+<!-- КРУГ -->
+<div class="ring"></div>
+
+<!-- ТЕКСТ -->
+<div class="quote">
+  everything fades eventually
+</div>
+
+<!-- НИЖНИЙ ТЕКСТ -->
 <div class="hint">
   hitimazari.com
 </div>
