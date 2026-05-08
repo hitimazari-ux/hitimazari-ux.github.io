@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Listen</title>
+
+<style>
+body {
+  margin: 0;
+  background: black;
+  color: white;
+  font-family: sans-serif;
+
+  /* SVG гравюра */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 200 200'%3E%3Cpath d='M0 20 C 30 0, 70 0, 100 20 S 170 40, 200 20' stroke='white' stroke-width='0.6' fill='none' opacity='0.14'/%3E%3Cpath d='M0 80 C 30 60, 70 60, 100 80 S 170 100, 200 80' stroke='white' stroke-width='0.6' fill='none' opacity='0.12'/%3E%3Cpath d='M0 140 C 30 120, 70 120, 100 140 S 170 160, 200 140' stroke='white' stroke-width='0.6' fill='none' opacity='0.10'/%3E%3C/svg%3E");
+
+  background-size: 320px 320px;
+  background-repeat: repeat;
+}
+
+.content {
+  padding: 40px;
+  max-width: 900px;
+  line-height: 1.6;
+}
+
+/* КНОПКА НАЗАД */
+.back-btn {
+  display: inline-block;
+  margin-bottom: 25px;
+  padding: 10px 16px;
+
+  color: white;
+  text-decoration: none;
+  letter-spacing: 2px;
+  font-size: 12px;
+
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 8px;
+
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(6px);
+
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.back-btn::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.15);
+  opacity: 0;
+  filter: blur(8px);
+  transition: 0.3s;
+}
+
+.back-btn:hover {
+  background: rgba(255,255,255,0.12);
+  transform: translateX(-3px);
+}
+
+.back-btn:hover::before {
+  opacity: 1;
+}
+
+.text {
+  font-size: 16px;
+  opacity: 0.85;
+  margin-bottom: 40px;
+}
+
+/* АУДИО КАРТОЧКИ */
+.track {
+  margin-bottom: 25px;
+  padding: 20px;
+
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(6px);
+
+  transition: 0.3s ease;
+}
+
+.track:hover {
+  background: rgba(255,255,255,0.06);
+  transform: translateY(-2px);
+}
+
+.track-title {
+  font-size: 14px;
+  letter-spacing: 2px;
+  margin-bottom: 14px;
+  opacity: 0.9;
+}
+
+audio {
+  width: 100%;
+  filter: invert(1) grayscale(1) contrast(0.9);
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="content">
+
+  <a href="/" class="back-btn">← НАЗАД</a>
+
+  <h1>LISTEN</h1>
+
+  <div class="text">
+    Здесь будет музыка, звуки и записи.
+  </div>
+
+  <!-- ТРЕК -->
+  <div class="track">
+    <div class="track-title">TRACK I — DREAM</div>
+
+    <audio controls>
+      <source src="music/dream.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <!-- ТРЕК -->
+  <div class="track">
+    <div class="track-title">TRACK II — NIGHT</div>
+
+    <audio controls>
+      <source src="music/night.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <!-- ТРЕК -->
+  <div class="track">
+    <div class="track-title">TRACK III — MEMORY</div>
+
+    <audio controls>
+      <source src="music/memory.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+</div>
+
+</body>
+</html>
