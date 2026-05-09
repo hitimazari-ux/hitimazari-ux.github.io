@@ -21,41 +21,30 @@ body {
 .content {
   padding: 40px;
   max-width: 900px;
-  line-height: 1.6;
 }
 
 .back-btn {
   display: inline-block;
   margin-bottom: 25px;
   padding: 10px 16px;
-
   color: white;
   text-decoration: none;
   letter-spacing: 2px;
   font-size: 12px;
-
   border: 1px solid rgba(255,255,255,0.25);
   border-radius: 8px;
-
   background: rgba(255,255,255,0.04);
-  backdrop-filter: blur(6px);
 }
 
 .section {
-  margin-bottom: 25px;
   border: 1px solid rgba(255,255,255,0.12);
   border-radius: 14px;
   background: rgba(255,255,255,0.03);
-}
-
-.section summary {
-  padding: 18px 22px;
-  cursor: pointer;
-  letter-spacing: 2px;
+  padding: 10px;
 }
 
 .track {
-  margin: 0 20px 20px 20px;
+  margin: 20px;
   padding: 20px;
   border: 1px solid rgba(255,255,255,0.10);
   border-radius: 14px;
@@ -89,105 +78,112 @@ audio {
 
   <h1>LISTEN</h1>
 
-  <details class="section" open>
-    <summary>МОЯ МУЗЫКА</summary>
+  <div class="section">
+
+    <!-- МОЯ МУЗЫКА -->
 
     <div class="track">
       <div class="track-title">The Noir Waltz</div>
-
-      <audio controls id="noirAudio">
-        <source src="music/TheNoirWaltz.mp3" type="audio/mpeg">
+      <audio controls data-slug="the_noir_waltz">
+        <source src="music/TheNoirWaltz.mp3">
       </audio>
-
-      <div class="plays" id="noirPlays">Прослушиваний: ...</div>
+      <div class="plays"></div>
     </div>
 
     <div class="track">
       <div class="track-title">The Devil's March</div>
-      <audio controls>
+      <audio controls data-slug="the_devils_march">
         <source src="music/TheDevilsMarch.mp3">
       </audio>
+      <div class="plays"></div>
     </div>
 
     <div class="track">
       <div class="track-title">The Rain</div>
-      <audio controls>
+      <audio controls data-slug="the_rain">
         <source src="music/TheRain.mp3">
       </audio>
+      <div class="plays"></div>
     </div>
 
     <div class="track">
       <div class="track-title">Spring Jubilation</div>
-      <audio controls>
+      <audio controls data-slug="spring_jubilation">
         <source src="music/SpringJubilation.mp3">
       </audio>
+      <div class="plays"></div>
     </div>
 
     <div class="track">
       <div class="track-title">Autumn</div>
-      <audio controls>
+      <audio controls data-slug="autumn">
         <source src="music/Autumn.mp3">
       </audio>
+      <div class="plays"></div>
     </div>
 
     <div class="track">
       <div class="track-title">The Shadow Masquerade</div>
-      <audio controls>
+      <audio controls data-slug="the_shadow_masquerade">
         <source src="music/TheShadowMasquerade.mp3">
       </audio>
+      <div class="plays"></div>
     </div>
 
-  </details>
+  </div>
 
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
 <script>
-const supabaseUrl = 'https://oqzuvzsrviqgjbznxbjh.supabase.co'
-const supabaseKey = 'sb_publishable_GlIwN_M21PHS9tcp_spxfw_BKTTUAGP'
+const supabase = window.supabase.createClient(
+  'https://oqzuvzsrviqgjbznxbjh.supabase.co',
+  'sb_publishable_GlIwN_M21PHS9tcp_spxfw_BKTTUAGP'
+)
 
-const supabase = window.supabase.createClient(supabaseUrl, supabaseKey)
+const audioElements = document.querySelectorAll('audio')
 
-const slug = 'the_noir_waltz'
-const audio = document.getElementById('noirAudio')
-const playsEl = document.getElementById('noirPlays')
+audioElements.forEach(audio => {
 
-let counted = false
+  const slug = audio.dataset.slug
+  const playsEl = audio.parentElement.querySelector('.plays')
 
-// загрузка счётчика
-async function loadPlays() {
-  const { data, error } = await supabase
-    .from('tracks')
-    .select('plays')
-    .eq('slug', slug)
-    .single()
+  if (!slug) return
 
-  if (data) {
-    playsEl.innerText = 'Прослушиваний: ' + data.plays
+  let counted = false
+
+  // загрузка plays
+  async function loadPlays() {
+    const { data } = await supabase
+      .from('tracks')
+      .select('plays')
+      .eq('slug', slug)
+      .single()
+
+    if (data) {
+      playsEl.innerText = 'Прослушиваний: ' + data.plays
+    }
   }
 
-  if (error) console.log(error)
-}
+  // RPC increment
+  async function increment() {
+    await supabase.rpc('increment_plays', {
+      track_slug: slug
+    })
+  }
 
-// инкремент через RPC
-async function incrementPlays() {
-  await supabase.rpc('increment_plays', {
-    track_slug: slug
+  // 15 секунд логика (оставил как ты просил)
+  audio.addEventListener('timeupdate', async () => {
+    if (audio.currentTime < 15 || counted) return
+
+    counted = true
+    await increment()
+    loadPlays()
   })
-}
 
-// 15 секунд логика (оставил как ты просил)
-audio.addEventListener('timeupdate', async () => {
-  if (audio.currentTime < 15 || counted) return
-
-  counted = true
-
-  await incrementPlays()
   loadPlays()
 })
-
-loadPlays()
 </script>
 
 </body>
