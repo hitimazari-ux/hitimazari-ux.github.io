@@ -86,6 +86,12 @@ audio {
   align-items: center;
 }
 
+.stats {
+  display: inline-block;
+  min-width: 90px;
+  color: rgba(255,255,255,0.9);
+}
+
 /* LIKE BUTTON */
 .like-btn {
   background: rgba(255,255,255,0.08);
@@ -101,14 +107,14 @@ audio {
   background: rgba(255,255,255,0.15);
 }
 
+/* Розовый фон после лайка */
 .like-btn.active {
-  background: rgba(255, 0, 120, 0.6);
+  background: rgba(255, 0, 120, 0.65);
   border-color: rgba(255, 0, 120, 1);
   color: white;
-  box-shadow: 0 0 10px rgba(255, 0, 120, 0.6);
+  box-shadow: 0 0 12px rgba(255, 0, 120, 0.7);
 }
 </style>
-
 </head>
 
 <body>
@@ -133,7 +139,7 @@ audio {
         <source src="music/TheNoirWaltz.mp3">
       </audio>
       <div class="meta">
-        <span class="stats"></span>
+        <span class="stats">▶ 0 ❤ 0</span>
         <button class="like-btn">❤</button>
       </div>
     </div>
@@ -143,7 +149,10 @@ audio {
       <audio controls data-slug="the_devils_march">
         <source src="music/TheDevilsMarch.mp3">
       </audio>
-      <div class="meta"><span class="stats"></span><button class="like-btn">❤</button></div>
+      <div class="meta">
+        <span class="stats">▶ 0 ❤ 0</span>
+        <button class="like-btn">❤</button>
+      </div>
     </div>
 
     <div class="track">
@@ -151,7 +160,10 @@ audio {
       <audio controls data-slug="the_rain">
         <source src="music/TheRain.mp3">
       </audio>
-      <div class="meta"><span class="stats"></span><button class="like-btn">❤</button></div>
+      <div class="meta">
+        <span class="stats">▶ 0 ❤ 0</span>
+        <button class="like-btn">❤</button>
+      </div>
     </div>
 
     <div class="track">
@@ -159,7 +171,10 @@ audio {
       <audio controls data-slug="spring_jubilation">
         <source src="music/SpringJubilation.mp3">
       </audio>
-      <div class="meta"><span class="stats"></span><button class="like-btn">❤</button></div>
+      <div class="meta">
+        <span class="stats">▶ 0 ❤ 0</span>
+        <button class="like-btn">❤</button>
+      </div>
     </div>
 
     <div class="track">
@@ -167,7 +182,10 @@ audio {
       <audio controls data-slug="autumn">
         <source src="music/Autumn.mp3">
       </audio>
-      <div class="meta"><span class="stats"></span><button class="like-btn">❤</button></div>
+      <div class="meta">
+        <span class="stats">▶ 0 ❤ 0</span>
+        <button class="like-btn">❤</button>
+      </div>
     </div>
 
     <div class="track">
@@ -175,7 +193,10 @@ audio {
       <audio controls data-slug="the_shadow_masquerade">
         <source src="music/TheShadowMasquerade.mp3">
       </audio>
-      <div class="meta"><span class="stats"></span><button class="like-btn">❤</button></div>
+      <div class="meta">
+        <span class="stats">▶ 0 ❤ 0</span>
+        <button class="like-btn">❤</button>
+      </div>
     </div>
 
   </details>
@@ -189,7 +210,10 @@ audio {
       <audio controls data-slug="505">
         <source src="music/505.mp3">
       </audio>
-      <div class="meta"><span class="stats"></span><button class="like-btn">❤</button></div>
+      <div class="meta">
+        <span class="stats">▶ 0 ❤ 0</span>
+        <button class="like-btn">❤</button>
+      </div>
     </div>
 
   </details>
@@ -205,7 +229,6 @@ const supabase = window.supabase.createClient(
 )
 
 document.querySelectorAll('.track').forEach(track => {
-
   const audio = track.querySelector('audio')
   const slug = audio.dataset.slug
   const stats = track.querySelector('.stats')
@@ -213,38 +236,81 @@ document.querySelectorAll('.track').forEach(track => {
 
   let counted = false
 
+  // Проверяем, ставил ли пользователь лайк ранее
+  if (localStorage.getItem('liked_' + slug) === '1') {
+    btn.classList.add('active')
+  }
+
+  // Загрузка статистики
   async function load() {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('tracks')
       .select('plays, likes')
       .eq('slug', slug)
       .single()
 
+    if (error) {
+      console.error('Ошибка загрузки:', error)
+      stats.textContent = '▶ 0 ❤ 0'
+      return
+    }
+
     if (data) {
-      stats.textContent = `▶ ${data.plays}   ❤ ${data.likes}`
+      const plays = data.plays ?? 0
+      const likes = data.likes ?? 0
+      stats.textContent = `▶ ${plays}   ❤ ${likes}`
     }
   }
 
+  // Добавить прослушивание
   async function addPlay() {
-    await supabase.rpc('increment_plays', { track_slug: slug })
+    const { error } = await supabase.rpc('increment_plays', {
+      track_slug: slug
+    })
+
+    if (error) {
+      console.error('Ошибка increment_plays:', error)
+    }
   }
 
+  // Добавить лайк
   async function addLike() {
-    await supabase.rpc('increment_likes', { track_slug: slug })
+    // Не даём лайкать повторно
+    if (btn.classList.contains('active')) return
 
+    const { error } = await supabase.rpc('increment_likes', {
+      track_slug: slug
+    })
+
+    if (error) {
+      console.error('Ошибка increment_likes:', error)
+      return
+    }
+
+    // Делаем кнопку розовой
     btn.classList.add('active')
-    load()
+
+    // Сохраняем в localStorage
+    localStorage.setItem('liked_' + slug, '1')
+
+    // Обновляем статистику
+    await load()
   }
 
+  // Засчитываем прослушивание после 15 секунд
   audio.addEventListener('timeupdate', async () => {
     if (audio.currentTime < 15 || counted) return
+
     counted = true
+
     await addPlay()
-    load()
+    await load()
   })
 
+  // Обработчик лайка
   btn.addEventListener('click', addLike)
 
+  // Начальная загрузка статистики
   load()
 })
 </script>
