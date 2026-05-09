@@ -11,9 +11,7 @@ body {
   background: black;
   color: white;
   font-family: sans-serif;
-
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 200 200'%3E%3Cpath d='M0 20 C 30 0, 70 0, 100 20 S 170 40, 200 20' stroke='white' stroke-width='0.6' fill='none' opacity='0.14'/%3E%3Cpath d='M0 80 C 30 60, 70 60, 100 80 S 170 100, 200 80' stroke='white' stroke-width='0.6' fill='none' opacity='0.12'/%3E%3Cpath d='M0 140 C 30 120, 70 120, 100 140 S 170 160, 200 140' stroke='white' stroke-width='0.6' fill='none' opacity='0.10'/%3E%3C/svg%3E");
-
   background-size: 320px 320px;
 }
 
@@ -22,7 +20,6 @@ body {
   max-width: 900px;
 }
 
-/* BACK */
 .back-btn {
   display: inline-block;
   margin-bottom: 25px;
@@ -36,14 +33,12 @@ body {
   background: rgba(255,255,255,0.04);
 }
 
-/* TEXT */
 .text {
   font-size: 16px;
   opacity: 0.85;
   margin-bottom: 30px;
 }
 
-/* SECTIONS */
 .section {
   margin-bottom: 25px;
   border: 1px solid rgba(255,255,255,0.12);
@@ -58,7 +53,6 @@ body {
   letter-spacing: 2px;
 }
 
-/* TRACK */
 .track {
   margin: 20px;
   padding: 20px;
@@ -76,7 +70,6 @@ audio {
   filter: invert(1);
 }
 
-/* META */
 .meta {
   margin-top: 10px;
   font-size: 12px;
@@ -88,11 +81,10 @@ audio {
 
 .stats {
   display: inline-block;
-  min-width: 90px;
+  min-width: 100px;
   color: rgba(255,255,255,0.9);
 }
 
-/* LIKE BUTTON */
 .like-btn {
   background: rgba(255,255,255,0.08);
   color: white;
@@ -107,16 +99,13 @@ audio {
   background: rgba(255,255,255,0.15);
 }
 
-/* Розовый фон после лайка */
 .like-btn.active {
   background: rgba(255, 0, 120, 0.65);
   border-color: rgba(255, 0, 120, 1);
-  color: white;
   box-shadow: 0 0 12px rgba(255, 0, 120, 0.7);
 }
 </style>
 </head>
-
 <body>
 
 <div class="content">
@@ -136,69 +125,68 @@ audio {
     <div class="track">
       <div class="track-title">The Noir Waltz</div>
       <audio controls data-slug="the_noir_waltz">
-        <source src="music/TheNoirWaltz.mp3">
+        <source src="music/TheNoirWaltz.mp3" type="audio/mpeg">
       </audio>
       <div class="meta">
         <span class="stats">▶ 0 ❤ 0</span>
-        <button class="like-btn">❤</button>
+        <button class="like-btn" type="button">❤</button>
       </div>
     </div>
 
     <div class="track">
       <div class="track-title">The Devil's March</div>
       <audio controls data-slug="the_devils_march">
-        <source src="music/TheDevilsMarch.mp3">
+        <source src="music/TheDevilsMarch.mp3" type="audio/mpeg">
       </audio>
       <div class="meta">
         <span class="stats">▶ 0 ❤ 0</span>
-        <button class="like-btn">❤</button>
+        <button class="like-btn" type="button">❤</button>
       </div>
     </div>
 
     <div class="track">
       <div class="track-title">The Rain</div>
       <audio controls data-slug="the_rain">
-        <source src="music/TheRain.mp3">
+        <source src="music/TheRain.mp3" type="audio/mpeg">
       </audio>
       <div class="meta">
         <span class="stats">▶ 0 ❤ 0</span>
-        <button class="like-btn">❤</button>
+        <button class="like-btn" type="button">❤</button>
       </div>
     </div>
 
     <div class="track">
       <div class="track-title">Spring Jubilation</div>
       <audio controls data-slug="spring_jubilation">
-        <source src="music/SpringJubilation.mp3">
+        <source src="music/SpringJubilation.mp3" type="audio/mpeg">
       </audio>
       <div class="meta">
         <span class="stats">▶ 0 ❤ 0</span>
-        <button class="like-btn">❤</button>
+        <button class="like-btn" type="button">❤</button>
       </div>
     </div>
 
     <div class="track">
       <div class="track-title">Autumn</div>
       <audio controls data-slug="autumn">
-        <source src="music/Autumn.mp3">
+        <source src="music/Autumn.mp3" type="audio/mpeg">
       </audio>
       <div class="meta">
         <span class="stats">▶ 0 ❤ 0</span>
-        <button class="like-btn">❤</button>
+        <button class="like-btn" type="button">❤</button>
       </div>
     </div>
 
     <div class="track">
       <div class="track-title">The Shadow Masquerade</div>
       <audio controls data-slug="the_shadow_masquerade">
-        <source src="music/TheShadowMasquerade.mp3">
+        <source src="music/TheShadowMasquerade.mp3" type="audio/mpeg">
       </audio>
       <div class="meta">
         <span class="stats">▶ 0 ❤ 0</span>
-        <button class="like-btn">❤</button>
+        <button class="like-btn" type="button">❤</button>
       </div>
     </div>
-
   </details>
 
   <!-- ЧУЖАЯ МУЗЫКА -->
@@ -208,111 +196,117 @@ audio {
     <div class="track">
       <div class="track-title">Arctic Monkeys - 505</div>
       <audio controls data-slug="505">
-        <source src="music/505.mp3">
+        <source src="music/505.mp3" type="audio/mpeg">
       </audio>
       <div class="meta">
         <span class="stats">▶ 0 ❤ 0</span>
-        <button class="like-btn">❤</button>
+        <button class="like-btn" type="button">❤</button>
       </div>
     </div>
-
   </details>
 
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 const supabase = window.supabase.createClient(
   'https://oqzuvzsrviqgjbznxbjh.supabase.co',
   'sb_publishable_GlIwN_M21PHS9tcp_spxfw_BKTTUAGP'
-)
+);
 
 document.querySelectorAll('.track').forEach(track => {
-  const audio = track.querySelector('audio')
-  const slug = audio.dataset.slug
-  const stats = track.querySelector('.stats')
-  const btn = track.querySelector('.like-btn')
+  const audio = track.querySelector('audio');
+  const slug = audio.dataset.slug;
+  const stats = track.querySelector('.stats');
+  const btn = track.querySelector('.like-btn');
 
-  let counted = false
+  let counted = false;
 
-  // Проверяем, ставил ли пользователь лайк ранее
+  // Восстанавливаем состояние лайка
   if (localStorage.getItem('liked_' + slug) === '1') {
-    btn.classList.add('active')
+    btn.classList.add('active');
   }
 
-  // Загрузка статистики
+  // Загрузка статистики из Supabase
   async function load() {
-    const { data, error } = await supabase
-      .from('tracks')
-      .select('plays, likes')
-      .eq('slug', slug)
-      .single()
+    try {
+      const { data, error } = await supabase
+        .from('tracks')
+        .select('plays, likes')
+        .eq('slug', slug)
+        .maybeSingle();   // безопаснее, чем .single()
 
-    if (error) {
-      console.error('Ошибка загрузки:', error)
-      stats.textContent = '▶ 0 ❤ 0'
-      return
-    }
+      if (error) {
+        console.error('Ошибка загрузки для', slug, error);
+        stats.textContent = '▶ 0 ❤ 0';
+        return;
+      }
 
-    if (data) {
-      const plays = data.plays ?? 0
-      const likes = data.likes ?? 0
-      stats.textContent = `▶ ${plays}   ❤ ${likes}`
+      if (data) {
+        const plays = data.plays ?? 0;
+        const likes = data.likes ?? 0;
+        stats.textContent = `▶ ${plays} ❤ ${likes}`;
+      } else {
+        // Если slug не найден в таблице
+        stats.textContent = '▶ 0 ❤ 0';
+        console.warn('Slug не найден в tracks:', slug);
+      }
+    } catch (err) {
+      console.error('Неожиданная ошибка:', err);
+      stats.textContent = '▶ 0 ❤ 0';
     }
   }
 
-  // Добавить прослушивание
+  // Увеличить прослушивания
   async function addPlay() {
     const { error } = await supabase.rpc('increment_plays', {
       track_slug: slug
-    })
+    });
 
     if (error) {
-      console.error('Ошибка increment_plays:', error)
+      console.error('Ошибка increment_plays для', slug, error);
+      return;
     }
+
+    await load();
   }
 
-  // Добавить лайк
+  // Увеличить лайки
   async function addLike() {
     // Не даём лайкать повторно
-    if (btn.classList.contains('active')) return
+    if (btn.classList.contains('active')) return;
 
     const { error } = await supabase.rpc('increment_likes', {
       track_slug: slug
-    })
+    });
 
     if (error) {
-      console.error('Ошибка increment_likes:', error)
-      return
+      console.error('Ошибка increment_likes для', slug, error);
+      return;
     }
 
-    // Делаем кнопку розовой
-    btn.classList.add('active')
+    btn.classList.add('active');              // кнопка становится розовой
+    localStorage.setItem('liked_' + slug, '1');
 
-    // Сохраняем в localStorage
-    localStorage.setItem('liked_' + slug, '1')
-
-    // Обновляем статистику
-    await load()
+    await load();
   }
 
   // Засчитываем прослушивание после 15 секунд
   audio.addEventListener('timeupdate', async () => {
-    if (audio.currentTime < 15 || counted) return
+    if (counted) return;
+    if (audio.currentTime < 15) return;
 
-    counted = true
+    counted = true;
+    await addPlay();
+  });
 
-    await addPlay()
-    await load()
-  })
+  // Лайк
+  btn.addEventListener('click', addLike);
 
-  // Обработчик лайка
-  btn.addEventListener('click', addLike)
-
-  // Начальная загрузка статистики
-  load()
-})
+  // Первичная загрузка статистики
+  load();
+});
 </script>
 
 </body>
