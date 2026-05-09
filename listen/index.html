@@ -12,7 +12,6 @@ body {
   color: white;
   font-family: sans-serif;
 
-  /* SVG гравюра */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 200 200'%3E%3Cpath d='M0 20 C 30 0, 70 0, 100 20 S 170 40, 200 20' stroke='white' stroke-width='0.6' fill='none' opacity='0.14'/%3E%3Cpath d='M0 80 C 30 60, 70 60, 100 80 S 170 100, 200 80' stroke='white' stroke-width='0.6' fill='none' opacity='0.12'/%3E%3Cpath d='M0 140 C 30 120, 70 120, 100 140 S 170 160, 200 140' stroke='white' stroke-width='0.6' fill='none' opacity='0.10'/%3E%3C/svg%3E");
 
   background-size: 320px 320px;
@@ -25,7 +24,6 @@ body {
   line-height: 1.6;
 }
 
-/* КНОПКА НАЗАД */
 .back-btn {
   display: inline-block;
   margin-bottom: 25px;
@@ -72,7 +70,6 @@ body {
   margin-bottom: 40px;
 }
 
-/* ВЫПАДАЮЩИЕ БЛОКИ */
 .section {
   margin-bottom: 25px;
 
@@ -115,7 +112,6 @@ body {
   content: "−";
 }
 
-/* АУДИО КАРТОЧКИ */
 .track {
   margin: 0 20px 20px 20px;
   padding: 20px;
@@ -144,6 +140,13 @@ audio {
   width: 100%;
   filter: invert(1) grayscale(1) contrast(0.9);
 }
+
+.plays {
+  margin-top: 12px;
+  font-size: 12px;
+  opacity: 0.6;
+  letter-spacing: 1px;
+}
 </style>
 
 </head>
@@ -168,9 +171,13 @@ audio {
     <div class="track">
       <div class="track-title">The Noir Waltz</div>
 
-      <audio controls>
+      <audio controls id="noirAudio">
         <source src="music/TheNoirWaltz.mp3" type="audio/mpeg">
       </audio>
+
+      <div class="plays" id="noirPlays">
+        Прослушиваний: ...
+      </div>
     </div>
 
     <div class="track">
@@ -212,6 +219,7 @@ audio {
         <source src="music/TheShadowMasquerade.mp3" type="audio/mpeg">
       </audio>
     </div>
+
   </details>
 
   <!-- ЧУЖАЯ МУЗЫКА -->
@@ -230,6 +238,68 @@ audio {
   </details>
 
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+<script>
+
+const supabaseUrl = 'https://oqzuvzsrviqgjbznxbjh.supabase.co'
+
+const supabaseKey = 'sb_publishable_GlIwN_M21PHS9tcp_spxfw_BKTTUAGP'
+
+const supabase = window.supabase.createClient(
+  supabaseUrl,
+  supabaseKey
+)
+
+async function loadPlays() {
+
+  const { data, error } = await supabase
+    .from('tracks')
+    .select('*')
+    .eq('slug', 'the_noir_waltz')
+    .single()
+
+  if(data) {
+    document.getElementById('noirPlays').innerText =
+      'Прослушиваний: ' + data.plays
+  }
+
+  if(error) {
+    console.log(error)
+  }
+}
+
+loadPlays()
+
+const audio = document.getElementById('noirAudio')
+
+let counted = false
+
+audio.addEventListener('timeupdate', async () => {
+
+  if(audio.currentTime > 15 && !counted) {
+
+    counted = true
+
+    const { data } = await supabase
+      .from('tracks')
+      .select('plays')
+      .eq('slug', 'the_noir_waltz')
+      .single()
+
+    await supabase
+      .from('tracks')
+      .update({
+        plays: data.plays + 1
+      })
+      .eq('slug', 'the_noir_waltz')
+
+    loadPlays()
+  }
+})
+
+</script>
 
 </body>
 </html>
