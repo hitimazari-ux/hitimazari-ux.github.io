@@ -11,7 +11,6 @@ body {
   background: black;
   color: white;
   font-family: sans-serif;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 200 200'%3E%3Cpath d='M0 20 C 30 0, 70 0, 100 20 S 170 40, 200 20' stroke='white' stroke-width='0.6' fill='none' opacity='0.14'/%3E%3Cpath d='M0 80 C 30 60, 70 60, 100 80 S 170 100, 200 80' stroke='white' stroke-width='0.6' fill='none' opacity='0.12'/%3E%3Cpath d='M0 140 C 30 120, 70 120, 100 140 S 170 160, 200 140' stroke='white' stroke-width='0.6' fill='none' opacity='0.10'/%3E%3C/svg%3E");
   background-size: 320px 320px;
 }
 
@@ -80,9 +79,7 @@ audio {
 }
 
 .stats {
-  display: inline-block;
   min-width: 100px;
-  color: rgba(255,255,255,0.9);
 }
 
 .like-btn {
@@ -92,7 +89,7 @@ audio {
   padding: 6px 10px;
   border-radius: 6px;
   cursor: pointer;
-  transition: 0.2s;
+  transition: all 0.2s ease;
 }
 
 .like-btn:hover {
@@ -100,8 +97,9 @@ audio {
 }
 
 .like-btn.active {
-  background: rgba(255, 0, 120, 0.65);
-  border-color: rgba(255, 0, 120, 1);
+  background: #ff0078;
+  border-color: #ff0078;
+  color: white;
   box-shadow: 0 0 12px rgba(255, 0, 120, 0.7);
 }
 </style>
@@ -109,17 +107,13 @@ audio {
 <body>
 
 <div class="content">
-
   <a href="/" class="back-btn">← НАЗАД</a>
 
   <h1>LISTEN</h1>
 
-  <div class="text">
-    И моя, и чужая музыка
-  </div>
+  <div class="text">И моя, и чужая музыка</div>
 
-  <!-- МОЯ МУЗЫКА -->
-  <details class="section">
+  <details class="section" open>
     <summary>МОЯ МУЗЫКА</summary>
 
     <div class="track">
@@ -189,7 +183,6 @@ audio {
     </div>
   </details>
 
-  <!-- ЧУЖАЯ МУЗЫКА -->
   <details class="section">
     <summary>ЧУЖАЯ МУЗЫКА</summary>
 
@@ -204,110 +197,108 @@ audio {
       </div>
     </div>
   </details>
-
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
+// Проверяем, что библиотека загрузилась
+if (!window.supabase) {
+  console.error('Supabase library not loaded');
+}
+
 const supabase = window.supabase.createClient(
   'https://oqzuvzsrviqgjbznxbjh.supabase.co',
   'sb_publishable_GlIwN_M21PHS9tcp_spxfw_BKTTUAGP'
 );
 
-document.querySelectorAll('.track').forEach(track => {
+async function loadStats(slug, statsEl) {
+  try {
+    const { data, error } = await supabase
+      .from('tracks')
+      .select('plays, likes')
+      .eq('slug', slug)
+      .maybeSingle();
+
+    if (error) {
+      console.error('Load error:', slug, error);
+      return;
+    }
+
+    if (data) {
+      statsEl.textContent = `▶ ${data.plays ?? 0} ❤ ${data.likes ?? 0}`;
+    }
+  } catch (e) {
+    console.error('Unexpected load error:', e);
+  }
+}
+
+async function incrementPlay(slug) {
+  try {
+    await supabase.rpc('increment_plays', { track_slug: slug });
+  } catch (e) {
+    console.error('increment_plays error:', e);
+  }
+}
+
+async function incrementLike(slug) {
+  try {
+    await supabase.rpc('increment_likes', { track_slug: slug });
+  } catch (e) {
+    console.error('increment_likes error:', e);
+  }
+}
+
+// Инициализация всех треков
+for (const track of document.querySelectorAll('.track')) {
   const audio = track.querySelector('audio');
   const slug = audio.dataset.slug;
   const stats = track.querySelector('.stats');
-  const btn = track.querySelector('.like-btn');
+  const button = track.querySelector('.like-btn');
 
   let counted = false;
 
-  // Восстанавливаем состояние лайка
+  // Восстановление состояния лайка
   if (localStorage.getItem('liked_' + slug) === '1') {
-    btn.classList.add('active');
+    button.classList.add('active');
   }
 
-  // Загрузка статистики из Supabase
-  async function load() {
-    try {
-      const { data, error } = await supabase
-        .from('tracks')
-        .select('plays, likes')
-        .eq('slug', slug)
-        .maybeSingle();   // безопаснее, чем .single()
+  // Загрузка статистики
+  loadStats(slug, stats);
 
-      if (error) {
-        console.error('Ошибка загрузки для', slug, error);
-        stats.textContent = '▶ 0 ❤ 0';
-        return;
-      }
-
-      if (data) {
-        const plays = data.plays ?? 0;
-        const likes = data.likes ?? 0;
-        stats.textContent = `▶ ${plays} ❤ ${likes}`;
-      } else {
-        // Если slug не найден в таблице
-        stats.textContent = '▶ 0 ❤ 0';
-        console.warn('Slug не найден в tracks:', slug);
-      }
-    } catch (err) {
-      console.error('Неожиданная ошибка:', err);
-      stats.textContent = '▶ 0 ❤ 0';
-    }
-  }
-
-  // Увеличить прослушивания
-  async function addPlay() {
-    const { error } = await supabase.rpc('increment_plays', {
-      track_slug: slug
-    });
-
-    if (error) {
-      console.error('Ошибка increment_plays для', slug, error);
+  // Клик по лайку
+  button.addEventListener('click', async function () {
+    // Если уже лайкали — ничего не делаем
+    if (button.classList.contains('active')) {
       return;
     }
 
-    await load();
-  }
+    // Делаем кнопку розовой СРАЗУ
+    button.classList.add('active');
 
-  // Увеличить лайки
-  async function addLike() {
-    // Не даём лайкать повторно
-    if (btn.classList.contains('active')) return;
-
-    const { error } = await supabase.rpc('increment_likes', {
-      track_slug: slug
-    });
-
-    if (error) {
-      console.error('Ошибка increment_likes для', slug, error);
-      return;
-    }
-
-    btn.classList.add('active');              // кнопка становится розовой
+    // Запоминаем в браузере
     localStorage.setItem('liked_' + slug, '1');
 
-    await load();
-  }
+    // Отправляем лайк в Supabase
+    await incrementLike(slug);
+
+    // Обновляем цифры
+    await loadStats(slug, stats);
+  });
 
   // Засчитываем прослушивание после 15 секунд
-  audio.addEventListener('timeupdate', async () => {
+  audio.addEventListener('timeupdate', async function () {
     if (counted) return;
     if (audio.currentTime < 15) return;
 
     counted = true;
-    await addPlay();
+
+    await incrementPlay(slug);
+    await loadStats(slug, stats);
   });
-
-  // Лайк
-  btn.addEventListener('click', addLike);
-
-  // Первичная загрузка статистики
-  load();
-});
+}
 </script>
 
 </body>
 </html>
+```
