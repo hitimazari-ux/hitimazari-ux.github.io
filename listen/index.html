@@ -11,9 +11,7 @@ body {
   background: black;
   color: white;
   font-family: sans-serif;
-
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 200 200'%3E%3Cpath d='M0 20 C 30 0, 70 0, 100 20 S 170 40, 200 20' stroke='white' stroke-width='0.6' fill='none' opacity='0.14'/%3E%3Cpath d='M0 80 C 30 60, 70 60, 100 80 S 170 100, 200 80' stroke='white' stroke-width='0.6' fill='none' opacity='0.12'/%3E%3Cpath d='M0 140 C 30 120, 70 120, 100 140 S 170 160, 200 140' stroke='white' stroke-width='0.6' fill='none' opacity='0.10'/%3E%3C/svg%3E");
-
   background-size: 320px 320px;
 }
 
@@ -27,13 +25,6 @@ body {
   border: 1px solid rgba(255,255,255,0.12);
   border-radius: 14px;
   background: rgba(255,255,255,0.03);
-  overflow: hidden;
-}
-
-.section summary {
-  padding: 18px 22px;
-  cursor: pointer;
-  letter-spacing: 2px;
 }
 
 .track {
@@ -59,6 +50,7 @@ audio {
   opacity: 0.7;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 button {
@@ -82,24 +74,34 @@ button:hover {
 
   <h1>LISTEN</h1>
 
-  <!-- МОЯ МУЗЫКА -->
-  <details class="section" open>
-    <summary>МОЯ МУЗЫКА</summary>
+  <div class="section">
+
+    <!-- TRACKS -->
 
     <div class="track">
       <div class="track-title">The Noir Waltz</div>
+
       <audio controls data-slug="the_noir_waltz">
         <source src="music/TheNoirWaltz.mp3">
       </audio>
-      <div class="meta"><span class="plays"></span><button class="like-btn">❤</button></div>
+
+      <div class="meta">
+        <span class="plays"></span>
+        <button class="like-btn">❤</button>
+      </div>
     </div>
 
     <div class="track">
       <div class="track-title">The Devil's March</div>
+
       <audio controls data-slug="the_devils_march">
         <source src="music/TheDevilsMarch.mp3">
       </audio>
-      <div class="meta"><span class="plays"></span><button class="like-btn">❤</button></div>
+
+      <div class="meta">
+        <span class="plays"></span>
+        <button class="like-btn">❤</button>
+      </div>
     </div>
 
     <div class="track">
@@ -134,22 +136,7 @@ button:hover {
       <div class="meta"><span class="plays"></span><button class="like-btn">❤</button></div>
     </div>
 
-  </details>
-
-  <!-- ЧУЖАЯ МУЗЫКА -->
-  <details class="section">
-    <summary>ЧУЖАЯ МУЗЫКА</summary>
-
-    <div class="track">
-      <div class="track-title">Arctic Monkeys - 505</div>
-      <audio controls data-slug="505">
-        <source src="music/505.mp3">
-      </audio>
-      <div class="meta"><span class="plays"></span><button class="like-btn">❤</button></div>
-    </div>
-
-  </details>
-
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
@@ -169,6 +156,7 @@ document.querySelectorAll('.track').forEach(track => {
 
   let counted = false
 
+  // загрузка данных
   async function load() {
     const { data } = await supabase
       .from('tracks')
@@ -181,12 +169,14 @@ document.querySelectorAll('.track').forEach(track => {
     }
   }
 
+  // plays RPC
   async function addPlay() {
     await supabase.rpc('increment_plays', {
       track_slug: slug
     })
   }
 
+  // likes RPC
   async function addLike() {
     await supabase.rpc('increment_likes', {
       track_slug: slug
@@ -194,6 +184,7 @@ document.querySelectorAll('.track').forEach(track => {
     load()
   }
 
+  // 15 секунд
   audio.addEventListener('timeupdate', async () => {
     if (audio.currentTime < 15 || counted) return
     counted = true
@@ -206,6 +197,240 @@ document.querySelectorAll('.track').forEach(track => {
   load()
 })
 </script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Listen</title>
+
+<style>
+body {
+  margin: 0;
+  background: black;
+  color: white;
+  font-family: sans-serif;
+
+  /* SVG гравюра */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 200 200'%3E%3Cpath d='M0 20 C 30 0, 70 0, 100 20 S 170 40, 200 20' stroke='white' stroke-width='0.6' fill='none' opacity='0.14'/%3E%3Cpath d='M0 80 C 30 60, 70 60, 100 80 S 170 100, 200 80' stroke='white' stroke-width='0.6' fill='none' opacity='0.12'/%3E%3Cpath d='M0 140 C 30 120, 70 120, 100 140 S 170 160, 200 140' stroke='white' stroke-width='0.6' fill='none' opacity='0.10'/%3E%3C/svg%3E");
+
+  background-size: 320px 320px;
+  background-repeat: repeat;
+}
+
+.content {
+  padding: 40px;
+  max-width: 900px;
+  line-height: 1.6;
+}
+
+/* КНОПКА НАЗАД */
+.back-btn {
+  display: inline-block;
+  margin-bottom: 25px;
+  padding: 10px 16px;
+
+  color: white;
+  text-decoration: none;
+  letter-spacing: 2px;
+  font-size: 12px;
+
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 8px;
+
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(6px);
+
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.back-btn::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.15);
+  opacity: 0;
+  filter: blur(8px);
+  transition: 0.3s;
+}
+
+.back-btn:hover {
+  background: rgba(255,255,255,0.12);
+  transform: translateX(-3px);
+}
+
+.back-btn:hover::before {
+  opacity: 1;
+}
+
+.text {
+  font-size: 16px;
+  opacity: 0.85;
+  margin-bottom: 40px;
+}
+
+/* ВЫПАДАЮЩИЕ БЛОКИ */
+.section {
+  margin-bottom: 25px;
+
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(6px);
+
+  overflow: hidden;
+}
+
+.section summary {
+  padding: 18px 22px;
+  cursor: pointer;
+
+  list-style: none;
+
+  font-size: 14px;
+  letter-spacing: 2px;
+
+  transition: 0.3s ease;
+}
+
+.section summary:hover {
+  background: rgba(255,255,255,0.06);
+}
+
+.section summary::-webkit-details-marker {
+  display: none;
+}
+
+.section summary::after {
+  content: "+";
+  float: right;
+  opacity: 0.6;
+}
+
+.section[open] summary::after {
+  content: "−";
+}
+
+/* АУДИО КАРТОЧКИ */
+.track {
+  margin: 0 20px 20px 20px;
+  padding: 20px;
+
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 14px;
+
+  background: rgba(255,255,255,0.02);
+
+  transition: 0.3s ease;
+}
+
+.track:hover {
+  background: rgba(255,255,255,0.05);
+  transform: translateY(-2px);
+}
+
+.track-title {
+  font-size: 14px;
+  letter-spacing: 2px;
+  margin-bottom: 14px;
+  opacity: 0.9;
+}
+
+audio {
+  width: 100%;
+  filter: invert(1) grayscale(1) contrast(0.9);
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="content">
+
+  <a href="/" class="back-btn">← НАЗАД</a>
+
+  <h1>LISTEN</h1>
+
+  <div class="text">
+    И моя, и чужая музыка
+  </div>
+
+  <!-- МОЯ МУЗЫКА -->
+  <details class="section">
+
+    <summary>МОЯ МУЗЫКА</summary>
+
+    <div class="track">
+      <div class="track-title">The Noir Waltz</div>
+
+      <audio controls>
+        <source src="music/TheNoirWaltz.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+
+    <div class="track">
+      <div class="track-title">The Devil's March</div>
+
+      <audio controls>
+        <source src="music/TheDevilsMarch.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+
+    <div class="track">
+      <div class="track-title">The Rain</div>
+
+      <audio controls>
+        <source src="music/TheRain.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+
+    <div class="track">
+      <div class="track-title">Spring Jubilation</div>
+
+      <audio controls>
+        <source src="music/SpringJubilation.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+    
+    <div class="track">
+      <div class="track-title">Autumn</div>
+
+      <audio controls>
+        <source src="music/Autumn.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+
+    <div class="track">
+      <div class="track-title">The Shadow Masquerade</div>
+
+      <audio controls>
+        <source src="music/TheShadowMasquerade.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+  </details>
+
+  <!-- ЧУЖАЯ МУЗЫКА -->
+  <details class="section">
+
+    <summary>ЧУЖАЯ МУЗЫКА</summary>
+
+    <div class="track">
+      <div class="track-title">Arctic Monkeys - 505</div>
+
+      <audio controls>
+        <source src="music/505.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+
+  </details>
+
+</div>
 
 </body>
 </html>
