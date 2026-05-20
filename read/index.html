@@ -3,16 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Read</title>
 
 <style>
+
 body {
   margin: 0;
   background: black;
   color: white;
   font-family: sans-serif;
 
-  /* SVG гравюра */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 200 200'%3E%3Cpath d='M0 20 C 30 0, 70 0, 100 20 S 170 40, 200 20' stroke='white' stroke-width='0.6' fill='none' opacity='0.14'/%3E%3Cpath d='M0 80 C 30 60, 70 60, 100 80 S 170 100, 200 80' stroke='white' stroke-width='0.6' fill='none' opacity='0.12'/%3E%3Cpath d='M0 140 C 30 120, 70 120, 100 140 S 170 160, 200 140' stroke='white' stroke-width='0.6' fill='none' opacity='0.10'/%3E%3C/svg%3E");
 
   background-size: 320px 320px;
@@ -22,10 +23,11 @@ body {
 .content {
   padding: 40px;
   max-width: 800px;
-  line-height: 1.6;
+  line-height: 1.8;
 }
 
 /* КНОПКА НАЗАД */
+
 .back-btn {
   display: inline-block;
   margin-bottom: 25px;
@@ -33,6 +35,7 @@ body {
 
   color: white;
   text-decoration: none;
+
   letter-spacing: 2px;
   font-size: 12px;
 
@@ -43,17 +46,22 @@ body {
   backdrop-filter: blur(6px);
 
   position: relative;
+
   transition: all 0.3s ease;
 }
 
 .back-btn::before {
   content: "";
+
   position: absolute;
   inset: -2px;
+
   border-radius: 10px;
   border: 1px solid rgba(255,255,255,0.15);
+
   opacity: 0;
   filter: blur(8px);
+
   transition: 0.3s;
 }
 
@@ -66,49 +74,143 @@ body {
   opacity: 1;
 }
 
-/* текст-заглушка */
+/* ЗАГОЛОВОК */
+
+h1 {
+  margin-top: 0;
+  margin-bottom: 35px;
+
+  letter-spacing: 4px;
+  font-size: 34px;
+}
+
+/* ТЕКСТ */
+
 .text {
   font-size: 16px;
   opacity: 0.85;
 }
-</style>
 
+/* СТИХ */
+
+.poem {
+  margin-top: 35px;
+
+  font-size: 18px;
+  line-height: 2;
+
+  color: rgba(255,255,255,0.92);
+
+  white-space: pre-line;
+
+  text-shadow:
+    0 0 10px rgba(255,255,255,0.03);
+}
+
+/* КНОПКА СТИХА */
+
+.poem-link {
+  display: inline-block;
+
+  margin-top: 50px;
+  padding: 14px 18px;
+
+  color: rgba(255,255,255,0.88);
+  text-decoration: none;
+
+  letter-spacing: 3px;
+  font-size: 12px;
+
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 12px;
+
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(6px);
+
+  transition: 0.35s ease;
+}
+
+.poem-link:hover {
+  background: rgba(255,255,255,0.08);
+
+  border-color: rgba(255,255,255,0.28);
+
+  transform:
+    translateY(-3px)
+    translateX(2px);
+
+  box-shadow:
+    0 0 20px rgba(255,255,255,0.04);
+}
+
+/* МОБИЛКИ */
+
+@media (max-width: 700px) {
+
+  .content {
+    padding: 28px;
+  }
+
+  .poem {
+    font-size: 16px;
+    line-height: 1.9;
+  }
+
+}
+
+</style>
 </head>
 
 <body>
 
 <div class="content">
 
-  <a href="/" class="back-btn">← НАЗАД</a>
+  <a href="/" class="back-btn">
+    ← НАЗАД
+  </a>
 
   <h1>READ</h1>
 
   <div class="text">
+
     Здесь будет мой контент.<br><br>
-    А пока почитайте Серёжу.<br>
-    <pre>
+    А пока почитайте Серёжу.
+
+    <div class="poem">
+
 Не жалею, не зову, не плачу,
 Все пройдет, как с белых яблонь дым.
 Увяданья золотом охваченный,
 Я не буду больше молодым.
+
 Ты теперь не так уж будешь биться,
 Сердце, тронутое холодком,
 И страна березового ситца
 Не заманит шляться босиком.
+
 Дух бродяжий! ты все реже, реже
 Расшевеливаешь пламень уст
 О моя утраченная свежесть,
 Буйство глаз и половодье чувств.
+
 Я теперь скупее стал в желаньях,
 Жизнь моя? иль ты приснилась мне?
 Словно я весенней гулкой ранью
 Проскакал на розовом коне.
+
 Все мы, все мы в этом мире тленны,
 Тихо льется с кленов листьев медь…
 Будь же ты вовек благословенно,
 Что пришло процвесть и умереть.
-                         1922г.
-    </pre>
+
+                         1922 г.
+
+    </div>
+
+    <a href="monolog-chackogo/" class="poem-link">
+      МОНОЛОГ ЧАЦКОГО →
+    </a>
+
   </div>
 
 </div>
