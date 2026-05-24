@@ -20,6 +20,8 @@ body {
   background-repeat: repeat;
 }
 
+/* ОСНОВНОЙ КОНТЕНТ */
+
 .content {
   padding: 40px;
   max-width: 800px;
@@ -107,22 +109,34 @@ h1 {
     0 0 10px rgba(255,255,255,0.03);
 }
 
-/* КНОПКА СТИХА */
+/* ПРАВЫЕ КНОПКИ */
+
+.side-buttons {
+  position: absolute;
+
+  top: 120px;
+  right: 40px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* КНОПКИ */
 
 .poem-link {
   display: inline-block;
 
-  margin-top: 50px;
-  padding: 14px 18px;
+  padding: 16px 22px;
 
   color: rgba(255,255,255,0.88);
   text-decoration: none;
 
-  letter-spacing: 3px;
-  font-size: 12px;
+  letter-spacing: 2px;
+  font-size: 13px;
 
   border: 1px solid rgba(255,255,255,0.14);
-  border-radius: 12px;
+  border-radius: 14px;
 
   background: rgba(255,255,255,0.03);
   backdrop-filter: blur(6px);
@@ -137,7 +151,7 @@ h1 {
 
   transform:
     translateY(-3px)
-    translateX(2px);
+    translateX(-2px);
 
   box-shadow:
     0 0 20px rgba(255,255,255,0.04);
@@ -145,10 +159,18 @@ h1 {
 
 /* МОБИЛКИ */
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
 
   .content {
     padding: 28px;
+  }
+
+  .side-buttons {
+    position: static;
+
+    margin-top: 50px;
+
+    padding-bottom: 50px;
   }
 
   .poem {
@@ -175,6 +197,7 @@ h1 {
     Пока почитайте Серёжу.
 
     <div class="poem">
+
 Не жалею, не зову, не плачу,
 Все пройдет, как с белых яблонь дым.
 Увяданья золотом охваченный,
@@ -201,13 +224,32 @@ h1 {
 Что пришло процвесть и умереть.
 
                          1922 г.
+
     </div>
 
-    <a href="monolog-chackogo/" class="poem-link">
-      МОНОЛОГ ЧАЦКОГО →
-    </a>
-
   </div>
+
+</div>
+
+<!-- КНОПКИ СПРАВА -->
+
+<div class="side-buttons">
+
+  <a href="monolog-chackogo/" class="poem-link">
+    МОНОЛОГ ЧАЦКОГО
+  </a>
+
+  <a href="prorok/" class="poem-link">
+    ПРОРОК
+  </a>
+
+  <a href="monolog-pechorina/" class="poem-link">
+    МОНОЛОГ ПЕЧОРИНА
+  </a>
+
+  <a href="kak-pokazat-osen/" class="poem-link">
+    КАК ПОКАЗАТЬ ОСЕНЬ
+  </a>
 
 </div>
 
