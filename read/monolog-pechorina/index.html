@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Монолог Печорина</title>
+
+<!-- ШРИФТ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+
+body {
+  margin: 0;
+  background: black;
+  color: rgba(255,255,255,0.88);
+
+  font-family: sans-serif;
+
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 200 200'%3E%3Cpath d='M0 20 C 30 0, 70 0, 100 20 S 170 40, 200 20' stroke='white' stroke-width='0.6' fill='none' opacity='0.14'/%3E%3Cpath d='M0 80 C 30 60, 70 60, 100 80 S 170 100, 200 80' stroke='white' stroke-width='0.6' fill='none' opacity='0.12'/%3E%3Cpath d='M0 140 C 30 120, 70 120, 100 140 S 170 160, 200 140' stroke='white' stroke-width='0.6' fill='none' opacity='0.10'/%3E%3C/svg%3E");
+
+  background-size: 320px 320px;
+  background-repeat: repeat;
+}
+
+/* ОСНОВНОЙ БЛОК */
+
+.container {
+  max-width: 640px;
+  margin: auto;
+
+  padding:
+  70px 30px
+  120px 30px;
+
+  animation: fadeIn 1.8s ease;
+}
+
+/* КНОПКА */
+
+.back-btn {
+  display: inline-block;
+
+  margin-bottom: 70px;
+  padding: 10px 16px;
+
+  color: white;
+  text-decoration: none;
+
+  font-size: 12px;
+  letter-spacing: 2px;
+
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.2);
+
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(6px);
+
+  transition: 0.3s ease;
+}
+
+.back-btn:hover {
+  background: rgba(255,255,255,0.1);
+  transform: translateX(-4px);
+}
+
+/* ЗАГОЛОВОК */
+
+.title {
+  font-family: 'Cormorant Garamond', serif;
+
+  font-size: 52px;
+  font-weight: 300;
+
+  margin-bottom: 8px;
+
+  letter-spacing: 2px;
+
+  color: white;
+}
+
+/* АВТОР */
+
+.author {
+  font-size: 13px;
+  letter-spacing: 4px;
+
+  opacity: 0.45;
+
+  margin-bottom: 35px;
+}
+
+/* СТИХ */
+
+.poem {
+  font-family: 'Cormorant Garamond', serif;
+
+  font-size: 24px;
+  font-weight: 300;
+
+  line-height: 2.1;
+  letter-spacing: 0.5px;
+
+  white-space: pre-line;
+
+  text-shadow:
+    0 0 10px rgba(255,255,255,0.03);
+
+  opacity: 0.93;
+}
+
+/* АНИМАЦИЯ */
+
+@keyframes fadeIn {
+
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* МОБИЛКИ */
+
+@media (max-width: 700px) {
+
+  .title {
+    font-size: 38px;
+  }
+
+  .poem {
+    font-size: 24px;
+    line-height: 1.9;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <a href="/read/" class="back-btn">
+    ← НАЗАД
+  </a>
+
+  <div class="title">
+    Монолог Печорина
+  </div>
+
+  <div class="author">
+    М. Ю. ЛЕРМОНТОВ
+  </div>
+
+  <div class="poem">
+
+Пробегаю в памяти все мое прошедшее и спрашиваю себя невольно: зачем я жил? для какой цели я родился?.. А, верно, она существовала, и, верно, было мне назначение высокое, потому что я чувствую в душе моей силы необъятные... Но я не угадал этого назначения, я увлекся приманками страстей пустых и неблагодарных; из горнила их я вышел тверд и холоден, как железо, но утратил навеки пыл благородных стремлений — лучший свет жизни. И с той поры сколько раз уже я играл роль топора в руках судьбы! Как орудие казни, я упадал на голову обреченных жертв, часто без злобы, всегда без сожаления... Моя любовь никому не принесла счастья, потому что я ничем не жертвовал для тех, кого любил: я любил для себя, для собственного удовольствия: я только удовлетворял странную потребность сердца, с жадностью поглощая их чувства, их радости и страданья — и никогда не мог насытиться. Так, томимый голодом в изнеможении засыпает и видит перед собой роскошные кушанья и шипучие вина; он пожирает с восторгом воздушные дары воображения, и ему кажется легче; но только проснулся — мечта исчезает... остается удвоенный голод и отчаяние!И, может быть, я завтра умру!.. и не останется на земле ни одного существа, которое бы поняло меня совершенно. Одни почитают меня хуже, другие лучше, чем я в самом деле... Одни скажут: он был добрый малый, другие — мерзавец. И то и другое будет ложно. После этого стоит ли труда жить? а все живешь — из любопытства: ожидаешь чего-то нового... Смешно и досадно!
+
+
+
+  </div>
+
+</div>
+
+</body>
+</html>
