@@ -20,58 +20,67 @@ body {
   background-repeat: repeat;
 }
 
-.content {
-  padding: 40px;
-  max-width: 800px;
-  line-height: 1.8;
+/* ЛЕВОЕ МЕНЮ */
+
+.side-menu {
+  position: fixed;
+
+  top: 40px;
+  left: 40px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  z-index: 1000;
 }
 
-/* КНОПКА НАЗАД */
+/* КНОПКИ */
 
-.back-btn {
+.menu-btn {
   display: inline-block;
-  margin-bottom: 25px;
-  padding: 10px 16px;
 
-  color: white;
+  padding: 12px 16px;
+
+  color: rgba(255,255,255,0.88);
   text-decoration: none;
 
   letter-spacing: 2px;
-  font-size: 12px;
+  font-size: 11px;
 
-  border: 1px solid rgba(255,255,255,0.25);
-  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 12px;
 
-  background: rgba(255,255,255,0.04);
+  background: rgba(255,255,255,0.03);
   backdrop-filter: blur(6px);
 
-  position: relative;
-
-  transition: all 0.3s ease;
+  transition: 0.35s ease;
 }
 
-.back-btn::before {
-  content: "";
+.menu-btn:hover {
+  background: rgba(255,255,255,0.08);
 
-  position: absolute;
-  inset: -2px;
+  border-color: rgba(255,255,255,0.28);
 
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.15);
+  transform:
+    translateX(3px);
 
-  opacity: 0;
-  filter: blur(8px);
-
-  transition: 0.3s;
+  box-shadow:
+    0 0 20px rgba(255,255,255,0.04);
 }
 
-.back-btn:hover {
-  background: rgba(255,255,255,0.12);
-  transform: translateX(-3px);
-}
+/* КОНТЕНТ */
 
-.back-btn:hover::before {
-  opacity: 1;
+.content {
+  padding:
+    60px
+    40px
+    100px
+    220px;
+
+  max-width: 800px;
+
+  line-height: 1.8;
 }
 
 /* ЗАГОЛОВОК */
@@ -107,48 +116,18 @@ h1 {
     0 0 10px rgba(255,255,255,0.03);
 }
 
-/* КНОПКА СТИХА */
-
-.poem-link {
-  display: inline-block;
-
-  margin-top: 50px;
-  padding: 14px 18px;
-
-  color: rgba(255,255,255,0.88);
-  text-decoration: none;
-
-  letter-spacing: 3px;
-  font-size: 12px;
-
-  border: 1px solid rgba(255,255,255,0.14);
-  border-radius: 12px;
-
-  background: rgba(255,255,255,0.03);
-  backdrop-filter: blur(6px);
-
-  transition: 0.35s ease;
-}
-
-.poem-link:hover {
-  background: rgba(255,255,255,0.08);
-
-  border-color: rgba(255,255,255,0.28);
-
-  transform:
-    translateY(-3px)
-    translateX(2px);
-
-  box-shadow:
-    0 0 20px rgba(255,255,255,0.04);
-}
-
 /* МОБИЛКИ */
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
+
+  .side-menu {
+    position: static;
+
+    padding: 25px 25px 0 25px;
+  }
 
   .content {
-    padding: 28px;
+    padding: 30px 25px 80px 25px;
   }
 
   .poem {
@@ -163,11 +142,35 @@ h1 {
 
 <body>
 
-<div class="content">
+<!-- ЛЕВОЕ МЕНЮ -->
 
-  <a href="/" class="back-btn">
+<div class="side-menu">
+
+  <a href="/" class="menu-btn">
     ← НАЗАД
   </a>
+
+  <a href="monolog-chackogo/" class="menu-btn">
+    МОНОЛОГ ЧАЦКОГО
+  </a>
+
+  <a href="prorok/" class="menu-btn">
+    ПРОРОК
+  </a>
+
+  <a href="monolog-pechorina/" class="menu-btn">
+    МОНОЛОГ ПЕЧОРИНА
+  </a>
+
+  <a href="kak-pokazat-osen/" class="menu-btn">
+    КАК ПОКАЗАТЬ ОСЕНЬ
+  </a>
+
+</div>
+
+<!-- КОНТЕНТ -->
+
+<div class="content">
 
   <h1>READ</h1>
 
@@ -175,6 +178,7 @@ h1 {
     Пока почитайте Серёжу.
 
     <div class="poem">
+
 Не жалею, не зову, не плачу,
 Все пройдет, как с белых яблонь дым.
 Увяданья золотом охваченный,
@@ -201,11 +205,8 @@ h1 {
 Что пришло процвесть и умереть.
 
                          1922 г.
-    </div>
 
-    <a href="monolog-chackogo/" class="poem-link">
-      МОНОЛОГ ЧАЦКОГО →
-    </a>
+    </div>
 
   </div>
 
