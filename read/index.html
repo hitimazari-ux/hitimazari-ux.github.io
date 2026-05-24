@@ -1,119 +1,180 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Read</title>
-    <style>
-        body {
-            margin: 0;
-            background: black;
-            color: white;
-            font-family: sans-serif;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 200 200'%3E%3Cpath d='M0 20 C 30 0, 70 0, 100 20 S 170 40, 200 20' stroke='white' stroke-width='0.6' fill='none' opacity='0.14'/%3E%3Cpath d='M0 80 C 30 60, 70 60, 100 80 S 170 100, 200 80' stroke='white' stroke-width='0.6' fill='none' opacity='0.12'/%3E%3Cpath d='M0 140 C 30 120, 70 120, 100 140 S 170 160, 200 140' stroke='white' stroke-width='0.6' fill='none' opacity='0.10'/%3E%3C/svg%3E");
-            background-size: 320px 320px;
-            background-repeat: repeat;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        .content {
-            padding: 40px;
-            max-width: 800px;
-            line-height: 1.8;
-        }
+<title>Read</title>
 
-        /* КНОПКА НАЗАД */
-        .back-btn {
-            display: inline-block;
-            margin-bottom: 25px;
-            padding: 10px 16px;
-            color: white;
-            text-decoration: none;
-            letter-spacing: 2px;
-            font-size: 12px;
-            border: 1px solid rgba(255,255,255,0.25);
-            border-radius: 8px;
-            background: rgba(255,255,255,0.04);
-            backdrop-filter: blur(6px);
-            transition: all 0.3s ease;
-        }
+<style>
 
-        .back-btn:hover {
-            background: rgba(255,255,255,0.12);
-            transform: translateX(-3px);
-        }
+body {
+  margin: 0;
+  background: black;
+  color: white;
+  font-family: sans-serif;
 
-        /* БОКОВОЕ МЕНЮ */
-        .side-menu {
-            position: fixed;
-            top: 40px;
-            right: 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            z-index: 100;
-        }
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 200 200'%3E%3Cpath d='M0 20 C 30 0, 70 0, 100 20 S 170 40, 200 20' stroke='white' stroke-width='0.6' fill='none' opacity='0.14'/%3E%3Cpath d='M0 80 C 30 60, 70 60, 100 80 S 170 100, 200 80' stroke='white' stroke-width='0.6' fill='none' opacity='0.12'/%3E%3Cpath d='M0 140 C 30 120, 70 120, 100 140 S 170 160, 200 140' stroke='white' stroke-width='0.6' fill='none' opacity='0.10'/%3E%3C/svg%3E");
 
-        .nav-link {
-            display: block;
-            padding: 12px 18px;
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            font-size: 11px;
-            letter-spacing: 2px;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 10px;
-            background: rgba(255,255,255,0.03);
-            backdrop-filter: blur(6px);
-            text-align: right;
-            transition: 0.35s ease;
-        }
+  background-size: 320px 320px;
+  background-repeat: repeat;
+}
 
-        .nav-link:hover {
-            background: rgba(255,255,255,0.08);
-            border-color: rgba(255,255,255,0.28);
-            transform: translateX(-5px);
-        }
+.content {
+  padding: 40px;
+  max-width: 800px;
+  line-height: 1.8;
+}
 
-        h1 { margin-top: 0; margin-bottom: 35px; letter-spacing: 4px; font-size: 34px; }
-        .text { font-size: 16px; opacity: 0.85; }
-        .poem { margin-top: 35px; font-size: 18px; line-height: 2; color: rgba(255,255,255,0.92); white-space: pre-line; }
+/* КНОПКА НАЗАД */
 
-        /* АДАПТИВНОСТЬ */
-        @media (max-width: 900px) {
-            .side-menu {
-                position: static;
-                margin-top: 40px;
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: flex-start;
-            }
-            .nav-link { text-align: center; }
-        }
+.back-btn {
+  display: inline-block;
+  margin-bottom: 25px;
+  padding: 10px 16px;
 
-        @media (max-width: 700px) {
-            .content { padding: 28px; }
-            .poem { font-size: 16px; line-height: 1.9; }
-        }
-    </style>
+  color: white;
+  text-decoration: none;
+
+  letter-spacing: 2px;
+  font-size: 12px;
+
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 8px;
+
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(6px);
+
+  position: relative;
+
+  transition: all 0.3s ease;
+}
+
+.back-btn::before {
+  content: "";
+
+  position: absolute;
+  inset: -2px;
+
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.15);
+
+  opacity: 0;
+  filter: blur(8px);
+
+  transition: 0.3s;
+}
+
+.back-btn:hover {
+  background: rgba(255,255,255,0.12);
+  transform: translateX(-3px);
+}
+
+.back-btn:hover::before {
+  opacity: 1;
+}
+
+/* ЗАГОЛОВОК */
+
+h1 {
+  margin-top: 0;
+  margin-bottom: 35px;
+
+  letter-spacing: 4px;
+  font-size: 34px;
+}
+
+/* ТЕКСТ */
+
+.text {
+  font-size: 16px;
+  opacity: 0.85;
+}
+
+/* СТИХ */
+
+.poem {
+  margin-top: 35px;
+
+  font-size: 18px;
+  line-height: 2;
+
+  color: rgba(255,255,255,0.92);
+
+  white-space: pre-line;
+
+  text-shadow:
+    0 0 10px rgba(255,255,255,0.03);
+}
+
+/* КНОПКА СТИХА */
+
+.poem-link {
+  display: inline-block;
+
+  margin-top: 50px;
+  padding: 14px 18px;
+
+  color: rgba(255,255,255,0.88);
+  text-decoration: none;
+
+  letter-spacing: 3px;
+  font-size: 12px;
+
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 12px;
+
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(6px);
+
+  transition: 0.35s ease;
+}
+
+.poem-link:hover {
+  background: rgba(255,255,255,0.08);
+
+  border-color: rgba(255,255,255,0.28);
+
+  transform:
+    translateY(-3px)
+    translateX(2px);
+
+  box-shadow:
+    0 0 20px rgba(255,255,255,0.04);
+}
+
+/* МОБИЛКИ */
+
+@media (max-width: 700px) {
+
+  .content {
+    padding: 28px;
+  }
+
+  .poem {
+    font-size: 16px;
+    line-height: 1.9;
+  }
+
+}
+
+</style>
 </head>
+
 <body>
 
-    <div class="side-menu">
-        <a href="/prorok" class="nav-link">ПРОРОК</a>
-        <a href="/monolog-pechorina" class="nav-link">МОНОЛОГ ПЕЧОРИНА</a>
-        <a href="/kak-pokazat-osen" class="nav-link">КАК ПОКАЗАТЬ ОСЕНЬ</a>
-        <a href="/monolog-chackogo" class="nav-link">МОНОЛОГ ЧАЦКОГО →</a>
-    </div>
+<div class="content">
 
-    <div class="content">
-        <a href="/" class="back-btn">← НАЗАД</a>
+  <a href="/" class="back-btn">
+    ← НАЗАД
+  </a>
 
-        <h1>READ</h1>
+  <h1>READ</h1>
 
-        <div class="text">
-            Пока почитайте Серёжу.
+  <div class="text">
+    Пока почитайте Серёжу.
 
-            <div class="poem">
+    <div class="poem">
 Не жалею, не зову, не плачу,
 Все пройдет, как с белых яблонь дым.
 Увяданья золотом охваченный,
@@ -139,10 +200,16 @@
 Будь же ты вовек благословенно,
 Что пришло процвесть и умереть.
 
-                        1922 г.
-            </div>
-        </div>
+                         1922 г.
     </div>
+
+    <a href="monolog-chackogo/" class="poem-link">
+      МОНОЛОГ ЧАЦКОГО →
+    </a>
+
+  </div>
+
+</div>
 
 </body>
 </html>
