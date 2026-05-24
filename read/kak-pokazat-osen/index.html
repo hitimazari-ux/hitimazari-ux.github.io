@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Как показать осень</title>
+
+<!-- ШРИФТ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+
+body {
+  margin: 0;
+  background: black;
+  color: rgba(255,255,255,0.88);
+
+  font-family: sans-serif;
+
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 200 200'%3E%3Cpath d='M0 20 C 30 0, 70 0, 100 20 S 170 40, 200 20' stroke='white' stroke-width='0.6' fill='none' opacity='0.14'/%3E%3Cpath d='M0 80 C 30 60, 70 60, 100 80 S 170 100, 200 80' stroke='white' stroke-width='0.6' fill='none' opacity='0.12'/%3E%3Cpath d='M0 140 C 30 120, 70 120, 100 140 S 170 160, 200 140' stroke='white' stroke-width='0.6' fill='none' opacity='0.10'/%3E%3C/svg%3E");
+
+  background-size: 320px 320px;
+  background-repeat: repeat;
+}
+
+/* ОСНОВНОЙ БЛОК */
+
+.container {
+  max-width: 640px;
+  margin: auto;
+
+  padding:
+  70px 30px
+  120px 30px;
+
+  animation: fadeIn 1.8s ease;
+}
+
+/* КНОПКА */
+
+.back-btn {
+  display: inline-block;
+
+  margin-bottom: 70px;
+  padding: 10px 16px;
+
+  color: white;
+  text-decoration: none;
+
+  font-size: 12px;
+  letter-spacing: 2px;
+
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.2);
+
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(6px);
+
+  transition: 0.3s ease;
+}
+
+.back-btn:hover {
+  background: rgba(255,255,255,0.1);
+  transform: translateX(-4px);
+}
+
+/* ЗАГОЛОВОК */
+
+.title {
+  font-family: 'Cormorant Garamond', serif;
+
+  font-size: 52px;
+  font-weight: 300;
+
+  margin-bottom: 8px;
+
+  letter-spacing: 2px;
+
+  color: white;
+}
+
+/* АВТОР */
+
+.author {
+  font-size: 13px;
+  letter-spacing: 4px;
+
+  opacity: 0.45;
+
+  margin-bottom: 35px;
+}
+
+/* СТИХ */
+
+.poem {
+  font-family: 'Cormorant Garamond', serif;
+
+  font-size: 24px;
+  font-weight: 300;
+
+  line-height: 2.1;
+  letter-spacing: 0.5px;
+
+  white-space: pre-line;
+
+  text-shadow:
+    0 0 10px rgba(255,255,255,0.03);
+
+  opacity: 0.93;
+}
+
+/* АНИМАЦИЯ */
+
+@keyframes fadeIn {
+
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* МОБИЛКИ */
+
+@media (max-width: 700px) {
+
+  .title {
+    font-size: 38px;
+  }
+
+  .poem {
+    font-size: 24px;
+    line-height: 1.9;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <a href="/read/" class="back-btn">
+    ← НАЗАД
+  </a>
+
+  <div class="title">
+    Как показать осень
+  </div>
+
+  <div class="author">
+    Ю. Д. ЛЕВИТАНСКИЙ
+  </div>
+
+  <div class="poem">
+
+Еще не осень — так, едва-едва.
+Ни опыта еще, ни мастерства.
+Она еще разучивает гаммы.
+Не вставлены еще вторые рамы,
+и тополя бульвара за окном
+еще монументальны, как скульптура.
+Еще упруга их мускулатура,
+но день-другой —
+и все пойдет на спад,
+проявится осенняя натура,
+и, предваряя близкий листопад,
+листва зашелестит, как партитура,
+и дождь забарабанит невпопад
+по клавишам,
+и вся клавиатура
+пойдет плясать под музыку дождя.
+Но стихнет,
+и немного погодя,
+наклонностей опасных не скрывая,
+бегом-бегом
+по линии трамвая
+помчится лист опавший,
+отрывая
+тройное сальто,
+словно акробат.
+И надпись «Осторожно, листопад!»,
+неясную тревогу вызывая,
+раскачиваться будет,
+как набат,
+внезапно загудевший на пожаре.
+И тут мы впрямь увидим на бульваре
+столбы огня.
+Там будут листья жечь.
+А листья будут падать, будут падать,
+и ровный звук,
+таящийся в листве,
+напомнит о прямом своем родстве
+с известною шопеновской сонатой.
+И тем не мене,
+листья будут жечь.
+Но дождик уже реже будет течь,
+и листья будут медленней кружиться,
+пока бульвар и вовсе обнажится,
+и мы за ним увидим в глубине
+фонарь у театрального подъезда
+на противоположной стороне,
+и белый лист афиши на стене,
+и профиль музыканта на афише.
+И мы особо выделим слова,
+где речь идет о нынешнем концерте
+фортепианной музыки,
+и в центре
+стоит - ШОПЕН, СОНАТА № 2.
+И словно бы сквозь сон,
+едва-едва
+коснутся нас начальные аккорды
+шопеновского траурного марша
+и станут отдаляться,
+повторяясь
+вдали,
+как позывные декабря.
+И матовая лампа фонаря
+затеплится свечением несмелым
+и высветит афишу на стене.
+Но тут уже повалит белым-белым,
+повалит густо-густо
+белым-белым,
+но это уже — в полной тишине.
+
+
+
+  </div>
+
+</div>
+
+</body>
+</html>
