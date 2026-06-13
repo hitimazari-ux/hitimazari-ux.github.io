@@ -22,9 +22,18 @@ body {
   line-height: 1.6;
 }
 
+/* Контейнер для верхних кнопок */
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  gap: 15px; /* На случай, если экран очень узкий */
+  flex-wrap: wrap; 
+}
+
 .back-btn {
   display: inline-block;
-  margin-bottom: 25px;
   padding: 10px 16px;
   color: white;
   text-decoration: none;
@@ -51,7 +60,15 @@ body {
 
 .back-btn:hover {
   background: rgba(255,255,255,0.12);
+}
+
+/* Эффекты движения кнопок при наведении */
+.back-btn.left:hover {
   transform: translateX(-3px);
+}
+
+.back-btn.right:hover {
+  transform: translateX(3px);
 }
 
 .back-btn:hover::before {
@@ -110,7 +127,11 @@ audio {
 <body>
 
 <div class="content">
-  <a href="/" class="back-btn">← НАЗАД</a>
+  
+  <div class="top-nav">
+    <a href="/" class="back-btn left">← НАЗАД</a>
+    <a href="/alter/pictures" class="back-btn right">КАРТИНКИ →</a>
+  </div>
 
   <h2>ЛЮБИМЫЕ ПЕСНИ</h2>
 
