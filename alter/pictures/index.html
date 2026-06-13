@@ -25,7 +25,7 @@ body {
 
 .top-nav {
   display: flex;
-  justify-content: flex-start; /* Прижимаем кнопку к левому краю */
+  justify-content: flex-start;
   align-items: center;
   margin-bottom: 25px;
   gap: 15px;
@@ -120,7 +120,6 @@ body {
   opacity: 0.8;
 }
 
-/* Стили для подписи при наведении */
 .gallery-caption {
   position: absolute;
   bottom: 0;
@@ -139,7 +138,6 @@ body {
   opacity: 1;
 }
 
-/* Стили для полноэкранного просмотра (модальное окно) */
 .modal {
   position: fixed;
   top: 0;
@@ -209,6 +207,101 @@ body {
     <div class="gallery">
       
       <div class="gallery-item">
+        <img src="IMG_0499.PNG" alt="Фото">
+        <div class="gallery-caption">Твоя подпись</div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="IMG_0518.JPG" alt="Фото">
+      </div>
+
+      <div class="gallery-item">
+        <img src="IMG_0553.PNG" alt="Фото">
+        <div class="gallery-caption">Твоя подпись</div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="IMG_0560.JPG" alt="Фото">
+      </div>
+
+      <div class="gallery-item">
+        <img src="IMG_0577.JPG" alt="Фото">
+      </div>
+
+      <div class="gallery-item">
+        <img src="IMG_0603.JPG" alt="Фото">
+      </div>
+
+      <div class="gallery-item">
+        <img src="IMG_0604.JPG" alt="Фото">
+      </div>
+
+      <div class="gallery-item">
+        <img src="IMG_0715.JPG" alt="Фото">
+      </div>
+
+      <div class="gallery-item">
+        <img src="IMG_0790.JPG" alt="Фото">
+      </div>
+
+      <div class="gallery-item">
+        <img src="IMG_0795.JPG" alt="Фото">
+      </div>
+
+      <div class="gallery-item">
+        <img src="IMG_0810.JPG" alt="Фото">
+      </div>
+
+      <div class="gallery-item">
+        <img src="IMG_0839.JPG" alt="Фото">
+        <div class="gallery-caption">Твоя подпись</div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="IMG_0876.JPG" alt="Фото">
+      </div>
+
+      <div class="gallery-item">
+        <img src="IMG_0883.JPG" alt="Фото">
+      </div>
+
+      <div class="gallery-item">
+        <img src="IMG_0885.JPG" alt="Фото">
+      </div>
+
+      <div class="gallery-item">
+        <img src="IMG_0886.JPG" alt="Фото">
+      </div>
+
+      <div class="gallery-item">
+        <img src="IMG_0889.JPG" alt="Фото">
+      </div>
+
+      <div class="gallery-item">
+        <img src="IMG_0916.JPG" alt="Фото">
+      </div>
+
+      <div class="gallery-item">
+        <img src="IMG_0936.JPG" alt="Фото">
+      </div>
+
+      <div class="gallery-item">
+        <img src="IMG_1139.JPG" alt="Фото">
+      </div>
+
+      <div class="gallery-item">
+        <img src="IMG_1143.JPG" alt="Фото">
+      </div>
+
+      <div class="gallery-item">
+        <img src="IMG_1144.JPG" alt="Фото">
+      </div>
+
+      <div class="gallery-item">
+        <img src="IMG_1170.JPG" alt="Фото">
+      </div>
+
+      <div class="gallery-item">
         <img src="IMG_2539.JPG" alt="Фото">
       </div>
 
@@ -247,13 +340,11 @@ body {
 </div>
 
 <script>
-  // Логика открытия картинок на полный экран
   const modal = document.getElementById('imageModal');
   const modalImage = document.getElementById('modalImage');
   const closeModal = document.getElementById('closeModal');
   const galleryImages = document.querySelectorAll('.gallery-item img');
 
-  // Открытие модалки по клику на любую картинку
   galleryImages.forEach(img => {
     img.addEventListener('click', () => {
       modalImage.src = img.src; 
@@ -261,7 +352,6 @@ body {
     });
   });
 
-  // Закрытие модалки
   const hideModal = () => {
     modal.classList.remove('active');
     setTimeout(() => {
@@ -269,17 +359,14 @@ body {
     }, 300);
   };
 
-  // Закрываем при клике на крестик
   closeModal.addEventListener('click', hideModal);
 
-  // Закрываем при клике на темный фон (вне самой картинки)
   modal.addEventListener('click', (e) => {
     if (e.target === modal) {
       hideModal();
     }
   });
 
-  // Закрываем по нажатию на Escape для удобства
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal.classList.contains('active')) {
       hideModal();
