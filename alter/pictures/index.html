@@ -25,7 +25,7 @@ body {
 
 .top-nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start; /* Прижимаем кнопку к левому краю */
   align-items: center;
   margin-bottom: 25px;
   gap: 15px;
@@ -64,10 +64,6 @@ body {
 
 .nav-btn.left:hover {
   transform: translateX(-3px);
-}
-
-.nav-btn.right:hover {
-  transform: translateX(3px);
 }
 
 .nav-btn:hover::before {
@@ -136,7 +132,7 @@ body {
   letter-spacing: 1.5px;
   opacity: 0;
   transition: 0.3s ease;
-  pointer-events: none; /* Чтобы подпись не мешала кликать на картинку */
+  pointer-events: none;
 }
 
 .gallery-item:hover .gallery-caption {
@@ -200,14 +196,13 @@ body {
 <div class="content">
   
   <div class="top-nav">
-    <a href="/" class="nav-btn left">← MAIN PAGE</a>
-    <a href="/alter" class="nav-btn right">MUSIC →</a>
+    <a href="/alter" class="nav-btn left">← MUSIC</a>
   </div>
 
   <h2>PICTURES</h2>
 
   <div class="text">
-    bebebebe alliens is here
+    awawawaw aliens are here
   </div>
 
   <div class="section">
@@ -231,7 +226,7 @@ body {
 
       <div class="gallery-item">
         <img src="IMG_2660.JPG" alt="Фото">
-        <div class="gallery-caption">Maybe the shoes will prove my age loool</div>
+        <div class="gallery-caption">Maybe the shoes will prove my age.</div>
       </div>
 
       <div class="gallery-item">
@@ -261,15 +256,14 @@ body {
   // Открытие модалки по клику на любую картинку
   galleryImages.forEach(img => {
     img.addEventListener('click', () => {
-      modalImage.src = img.src; // Берем источник (путь) кликнутой картинки
-      modal.classList.add('active'); // Показываем окно
+      modalImage.src = img.src; 
+      modal.classList.add('active'); 
     });
   });
 
   // Закрытие модалки
   const hideModal = () => {
     modal.classList.remove('active');
-    // Небольшая задержка перед очисткой src, чтобы анимация скрытия прошла гладко
     setTimeout(() => {
       modalImage.src = '';
     }, 300);
